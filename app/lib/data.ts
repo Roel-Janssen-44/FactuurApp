@@ -238,3 +238,29 @@ export async function getUser(email: string) {
     throw new Error('Failed to fetch user.');
   }
 }
+
+// ==============================
+
+// Fetch tables
+export async function fetchTables() {
+  try {
+    const data = await sql`SELECT * FROM tasks`;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch tasks.');
+  }
+}
+
+// Fetch tasks
+export async function fetchTasks() {
+  try {
+    const data = await sql`SELECT * FROM tasks`;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch tasks.');
+  }
+}

@@ -1,3 +1,30 @@
+export type Task = {
+  id: string;
+  title: string;
+  completed: boolean;
+  priority: 'low' | 'medium' | 'high';
+  date: string;
+  parent?: string;
+};
+
+export type GoalTask = {
+  id: string;
+  title: string;
+  completed: boolean;
+  priority: 'low' | 'medium' | 'high';
+  date: string;
+  repeat: boolean;
+  daysPerWeek?: number;
+};
+
+// CREATE TYPE priority AS ENUM ('low', 'medium', 'high');
+
+export type Table = {
+  id: string;
+  title: string;
+  tasks: Task[] | GoalTask[];
+};
+
 // This file contains type definitions for your data.
 // It describes the shape of the data, and what data type each property should accept.
 // For simplicity of teaching, we're manually defining these types.
