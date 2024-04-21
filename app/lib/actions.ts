@@ -20,6 +20,9 @@ const FormSchema = z.object({
   }),
   date: z.string(),
 });
+const TableSchema = z.object({
+  title: z.string(),
+});
 
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
@@ -29,6 +32,18 @@ export type State = {
     customerId?: string[];
     amount?: string[];
     status?: string[];
+  };
+  message?: string | null;
+};
+export type TableState = {
+  errors?: {
+    title?: string[];
+  };
+  message?: string | null;
+};
+export type TaskState = {
+  errors?: {
+    title?: string[];
   };
   message?: string | null;
 };
@@ -135,4 +150,62 @@ export async function authenticate(
     }
     throw error;
   }
+}
+
+export async function createTable(prevState: TableState, formData: FormData) {
+  const validatedFields = TableSchema.safeParse({
+    title: formData.get('title'),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Create Table.',
+    };
+  }
+
+  const { title } = validatedFields.data;
+
+  try {
+    await sql`
+      INSERT INTO tables (title)
+      VALUES (${title})
+    `;
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Create Table.',
+    };
+  }
+
+  revalidatePath('/dashboard/tasks');
+  redirect('/dashboard/tasks');
+}
+
+export async function createTask(prevState: TaskState, formData: FormData) {
+  const validatedFields = TaskSchema.safeParse({
+    title: formData.get('title'),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Create Table.',
+    };
+  }
+
+  const { title } = validatedFields.data;
+
+  try {
+    await sql`
+      INSERT INTO tasks (title)
+      VALUES (${title})
+    `;
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Create Table.',
+    };
+  }
+
+  revalidatePath('/dashboard/tasks');
+  redirect('/dashboard/tasks');
 }

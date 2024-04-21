@@ -19,9 +19,9 @@ async function seedTasks(client) {
         completed BOOLEAN NOT NULL,
         priority VARCHAR(28) DEFAULT NULL,
         date DATE DEFAULT NULL,
-        parent_id VARCHAR(255) DEFAULT NULL,
         repeat BOOLEAN DEFAULT NULL, 
         daysPerWeek INT DEFAULT NULL
+        parent_id VARCHAR(255) DEFAULT NULL,
       );
     `;
 
@@ -42,6 +42,41 @@ async function seedTasks(client) {
     return {
       createTable,
       tasks: insertedTasks,
+    };
+  } catch (error) {
+    console.error('Error seeding tasks:', error);
+    throw error;
+  }
+}
+
+async function seedTables(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    // Create the "tasks" table if it doesn't exist
+    const createTable = await client.sql`
+      CREATE TABLE IF NOT EXISTS tables (
+        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        title VARCHAR(56) NOT NULL
+      );
+    `;
+
+    console.log(`Created "tasks" table`);
+
+    // const insertedTasks = await Promise.all(
+    //   tasks.map((task) => {
+    //     return client.sql`
+    //     INSERT INTO tasks (id, title, completed, priority, date, parent_id, repeat, daysPerWeek)
+    //     VALUES (${task.id}, ${task.title}, ${task.completed}, ${task.priority}, ${task.date}, ${task.parent_id}, ${task.repeat}, ${task.daysPerWeek})
+    //     ON CONFLICT (id) DO NOTHING;
+    //     `;
+    //   }),
+    // );
+
+    // console.log(`Seeded ${insertedTasks.length} tasks`);
+
+    return {
+      createTable,
+      // tasks: insertedTasks,
     };
   } catch (error) {
     console.error('Error seeding tasks:', error);
@@ -209,7 +244,8 @@ async function main() {
   // await seedCustomers(client);
   // await seedInvoices(client);
   // await seedRevenue(client);
-  await seedTasks(client);
+  // await seedTasks(client);
+  await seedTables(client);
 
   await client.end();
 }

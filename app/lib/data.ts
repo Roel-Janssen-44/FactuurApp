@@ -244,12 +244,12 @@ export async function getUser(email: string) {
 // Fetch tables
 export async function fetchTables() {
   try {
-    const data = await sql`SELECT * FROM tasks`;
+    const data = await sql`SELECT * FROM tables`;
 
     return data.rows;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch tasks.');
+    // throw new Error('Failed to fetch tasks.');
   }
 }
 

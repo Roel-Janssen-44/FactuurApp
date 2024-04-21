@@ -17,8 +17,6 @@ export type GoalTask = {
   daysPerWeek?: number;
 };
 
-// CREATE TYPE priority AS ENUM ('low', 'medium', 'high');
-
 export type Table = {
   id: string;
   title: string;
