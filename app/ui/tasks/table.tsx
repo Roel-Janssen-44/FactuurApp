@@ -7,6 +7,9 @@ import { Task, Table } from '@/app/lib/definitions';
 
 import { Button } from '@/components/ui/button';
 import CreateTask from './createTask';
+import { TrashIcon } from '@heroicons/react/24/outline';
+import { deleteTask } from '@/app/lib/actions';
+import { Input } from '@/components/ui/input';
 
 export default function TaskTable({
   table,
@@ -23,6 +26,20 @@ export default function TaskTable({
   const createNewTask = () => {
     setShowForm(true);
     setFormData(null);
+  };
+
+  const handleChange = (
+    taskId: string,
+    columnName: string,
+    defaultValue: string,
+    newValue: string,
+  ) => {
+    console.log(`task id: ${taskId}`);
+    console.log(`columnName... ${columnName}`);
+    console.log(`defaultValue... ${defaultValue}`);
+    console.log(`new value... ${newValue}`);
+    if (newValue == defaultValue) return;
+    console.log('changing task');
   };
 
   return (
@@ -43,6 +60,7 @@ export default function TaskTable({
             <th scope="col" className="px-3 py-5 font-medium">
               Status
             </th>
+            <th scope="col" className="px-3 py-5 font-medium"></th>
           </tr>
         </thead>
         <tbody>
@@ -52,13 +70,46 @@ export default function TaskTable({
                 key={task.id}
                 className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
               >
-                <td className="whitespace-nowrap px-3 py-3">{task.title}</td>
+                {/* <td className="whitespace-nowrap px-3 py-3">{task.title}</td> */}
+                <td className="whitespace-nowrap px-3 py-3">
+                  {/* <input
+                    onChange={(e) => {
+                      handleChange(task.id, 'title', e.target.value);
+                    }}
+                    onUnfocus={(e) => {
+                      handleChange(task.id, 'title', e.target.value);
+                    }
+                    // value={task.title}
+                  /> */}
+                  <Input
+                    defaultValue={task.title}
+                    onBlur={(e) => {
+                      handleChange(
+                        task.id,
+                        'title',
+                        task.title,
+                        e.target.value,
+                      );
+                    }}
+                  />
+                </td>
                 <td className="whitespace-nowrap px-3 py-3">{task.priority}</td>
                 <td className="whitespace-nowrap px-3 py-3">
-                  {formatDateToLocal(task.date)}
+                  {task.date && formatDateToLocal(task.date)}
                 </td>
                 <td className="whitespace-nowrap px-3 py-3">
                   {task.completed ? 'Completed' : 'Not completed'}
+                </td>
+                <td>
+                  <Button
+                    onClick={() => deleteTask(task.id)}
+                    size="icon"
+                    variant="outline"
+                  >
+                    <div className="flex flex-row justify-center">
+                      <TrashIcon className="h-5 w-5" />
+                    </div>
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -72,14 +123,6 @@ export default function TaskTable({
         </tbody>
       </table>
       {showForm && <CreateTask table_id={table.id} />}
-
-      {/* <Button
-        className="my-2 rounded-lg bg-blue-500 p-3"
-        onClick={() => setShowForm(!showForm)}
-      >
-        Add task
-      </Button> */}
-      {/* {showForm && <CreateTask />} */}
     </div>
   );
 }

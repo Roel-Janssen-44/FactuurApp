@@ -38,6 +38,7 @@ export default function CreateTask({ table_id }: { table_id: string }) {
 
   return (
     <form action={dispatch} className="flex flex-row gap-2">
+      {/* <form action={() => null} className="flex flex-row gap-2"> */}
       <input type="hidden" id="table_id" name="table_id" value={table_id} />
       <div className="rounded-md bg-gray-50">
         <div className="mb-4">
@@ -54,7 +55,7 @@ export default function CreateTask({ table_id }: { table_id: string }) {
                 name="title"
                 type="text"
                 placeholder="Title"
-                className="peer block w-[150px] rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
+                className="peer block w-[350px] rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
                 aria-labelledby="title-error"
                 required
               />
@@ -71,7 +72,7 @@ export default function CreateTask({ table_id }: { table_id: string }) {
         </div>
       </div>
 
-      <div className="rounded-md bg-gray-50">
+      {/* <div className="rounded-md bg-gray-50">
         <div className="mb-4">
           <label
             htmlFor="priority"
@@ -185,7 +186,8 @@ export default function CreateTask({ table_id }: { table_id: string }) {
               </p>
             ))}
         </div>
-      </div>
+      </div> */}
+
       <button type="submit">Create task</button>
     </form>
   );

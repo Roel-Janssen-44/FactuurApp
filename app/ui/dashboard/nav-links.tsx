@@ -14,12 +14,12 @@ import clsx from 'clsx';
 // Map of links to display in the side navigation.
 const links = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon },
-  {
-    name: 'Invoices',
-    href: '/dashboard/invoices',
-    icon: DocumentDuplicateIcon,
-  },
-  { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
+  // {
+  //   name: 'Invoices',
+  //   href: '/dashboard/invoices',
+  //   icon: DocumentDuplicateIcon,
+  // },
+  // { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
   { name: 'Tasks', href: '/dashboard/tasks', icon: ClipboardDocumentListIcon },
 ];
 

@@ -38,7 +38,12 @@ const CreateInvoice = FormSchema.omit({ id: true, date: true });
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
 const CreateTable = TableSchema.omit({ id: true });
-const CreateTask = TaskSchema.omit({ id: true });
+const CreateTask = TaskSchema.omit({
+  id: true,
+  priority: true,
+  date: true,
+  status: true,
+});
 
 export type State = {
   errors?: {
@@ -205,11 +210,10 @@ export async function createTask(
 ) {
   const validatedFields = CreateTask.safeParse({
     title: formData.get('title'),
-    priority: formData.get('priority'),
-    date: formData.get('date'),
-    status: formData.get('status'),
   });
 
+  console.log('validatedFields', validatedFields);
+  console.log(validatedFields.error);
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -217,16 +221,35 @@ export async function createTask(
     };
   }
 
-  const { title, priority, date, status } = validatedFields.data;
+  const { title } = validatedFields.data;
 
+  console.log('craeteing task');
+  console.log(title);
+  console.log(table_id);
   try {
     await sql`
-      INSERT INTO tasks (title, completed, priority, date, table_id)
-      VALUES (${title}, false, ${priority}, ${date}, ${table_id})
+      INSERT INTO tasks (title, table_id)
+      VALUES (${title}, ${table_id})
+    `;
+    console.log('task created');
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Create Task.',
+    };
+  }
+
+  revalidatePath('/dashboard/tasks');
+  redirect('/dashboard/tasks');
+}
+
+export async function deleteTask(taskId: string) {
+  try {
+    await sql`
+      DELETE FROM tasks WHERE id = ${taskId}
     `;
   } catch (error) {
     return {
-      message: 'Database Error: Failed to Create Table.',
+      message: 'Database Error: Failed to Delete Task.',
     };
   }
 
