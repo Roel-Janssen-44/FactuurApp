@@ -20,12 +20,25 @@ const FormSchema = z.object({
   }),
   date: z.string(),
 });
+
 const TableSchema = z.object({
+  id: z.string(),
   title: z.string(),
+});
+
+const TaskSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  priority: z.string(),
+  date: z.string(),
+  status: z.string(),
 });
 
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+
+const CreateTable = TableSchema.omit({ id: true });
+const CreateTask = TaskSchema.omit({ id: true });
 
 export type State = {
   errors?: {
@@ -35,6 +48,7 @@ export type State = {
   };
   message?: string | null;
 };
+
 export type TableState = {
   errors?: {
     title?: string[];
@@ -44,6 +58,9 @@ export type TableState = {
 export type TaskState = {
   errors?: {
     title?: string[];
+    priority?: string[];
+    date?: string[];
+    status?: string[];
   };
   message?: string | null;
 };
@@ -181,9 +198,16 @@ export async function createTable(prevState: TableState, formData: FormData) {
   redirect('/dashboard/tasks');
 }
 
-export async function createTask(prevState: TaskState, formData: FormData) {
-  const validatedFields = TaskSchema.safeParse({
+export async function createTask(
+  table_id: string,
+  prevState: TaskState,
+  formData: FormData,
+) {
+  const validatedFields = CreateTask.safeParse({
     title: formData.get('title'),
+    priority: formData.get('priority'),
+    date: formData.get('date'),
+    status: formData.get('status'),
   });
 
   if (!validatedFields.success) {
@@ -193,12 +217,12 @@ export async function createTask(prevState: TaskState, formData: FormData) {
     };
   }
 
-  const { title } = validatedFields.data;
+  const { title, priority, date, status } = validatedFields.data;
 
   try {
     await sql`
-      INSERT INTO tasks (title)
-      VALUES (${title})
+      INSERT INTO tasks (title, completed, priority, date, table_id)
+      VALUES (${title}, false, ${priority}, ${date}, ${table_id})
     `;
   } catch (error) {
     return {

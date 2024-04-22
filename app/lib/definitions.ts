@@ -2,9 +2,10 @@ export type Task = {
   id: string;
   title: string;
   completed: boolean;
-  priority: 'low' | 'medium' | 'high';
-  date: string;
-  parent?: string;
+  priority: 'low' | 'medium' | 'high' | null;
+  date: string | null;
+  // parent_id?: string;
+  table_id: string | null;
 };
 
 export type GoalTask = {
@@ -13,8 +14,9 @@ export type GoalTask = {
   completed: boolean;
   priority: 'low' | 'medium' | 'high';
   date: string;
-  repeat: boolean;
+  repeat?: boolean;
   daysPerWeek?: number;
+  table_id: string | null;
 };
 
 export type Table = {
