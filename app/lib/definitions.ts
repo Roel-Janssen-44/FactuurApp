@@ -2,10 +2,11 @@ export type Task = {
   id: string;
   title: string;
   completed: boolean;
-  priority: 'low' | 'medium' | 'high' | null;
-  date: string | null;
+  status?: 'planned' | 'working on it' | 'done' | 'stuck';
+  priority?: 'low' | 'medium' | 'high';
+  date?: string;
   // parent_id?: string;
-  table_id: string | null;
+  table_id: string;
 };
 
 export type GoalTask = {

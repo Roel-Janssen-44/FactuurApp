@@ -256,7 +256,8 @@ export async function fetchTables() {
 // Fetch tasks
 export async function fetchTasks() {
   try {
-    const data = await sql`SELECT * FROM tasks`;
+    const data = await sql`select * from tasks
+    order By title ASC`;
 
     return data.rows;
   } catch (error) {

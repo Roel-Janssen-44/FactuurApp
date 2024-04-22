@@ -242,6 +242,61 @@ export async function createTask(
   redirect('/dashboard/tasks');
 }
 
+export async function updateTask(
+  taskId: string,
+  columnName: string,
+  newValue: string,
+) {
+  const query = generateTaskQuery(taskId, columnName, newValue);
+  try {
+    switch (columnName) {
+      case 'title':
+        await sql`
+          UPDATE tasks 
+          SET title=${newValue} 
+          WHERE id=${taskId}
+        `;
+        break;
+      case 'priority':
+        await sql`
+          UPDATE tasks 
+          SET priority=${newValue} 
+          WHERE id=${taskId}
+        `;
+        break;
+      case 'date':
+        await sql`
+          UPDATE tasks 
+          SET date=${newValue} 
+          WHERE id=${taskId}
+        `;
+        break;
+      case 'status':
+        await sql`
+          UPDATE tasks 
+          SET status=${newValue} 
+          WHERE id=${taskId}
+        `;
+        break;
+    }
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Update Task.',
+    };
+  }
+
+  revalidatePath('/dashboard/tasks');
+  redirect('/dashboard/tasks');
+}
+
+const generateTaskQuery = (
+  taskId: string,
+  tableName: string,
+  newValue: string,
+) => {
+  return `UPDATE tasks SET ${tableName}='${newValue}' WHERE id='${taskId}'`;
+};
+
 export async function deleteTask(taskId: string) {
   try {
     await sql`
