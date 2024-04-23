@@ -8,7 +8,7 @@ import { Task, Table } from '@/app/lib/definitions';
 import { Button } from '@/components/ui/button';
 import CreateTask from './createTask';
 import { TrashIcon } from '@heroicons/react/24/outline';
-import { updateTask, deleteTask } from '@/app/lib/actions';
+import { updateTask, deleteTask, updateTableName } from '@/app/lib/actions';
 import { Input } from '@/components/ui/input';
 
 import {
@@ -33,15 +33,15 @@ export default function TaskTable({
   table: Table;
   tasks: Task[];
 }) {
-  const [showForm, setShowForm] = useState(true);
-  const [formData, setFormData] = useState<Task | null>(null);
+  // const [showForm, setShowForm] = useState(true);
+  // const [formData, setFormData] = useState<Task | null>(null);
 
   if (!tasks) return null;
 
-  const createNewTask = () => {
-    setShowForm(true);
-    setFormData(null);
-  };
+  // const createNewTask = () => {
+  //   setShowForm(true);
+  //   setFormData(null);
+  // };
 
   const handleChange = (
     taskId: string,
@@ -56,9 +56,25 @@ export default function TaskTable({
     updateTask(taskId, columnName, newValue);
   };
 
+  const handleTitleChange = (newValue: string) => {
+    console.log('handleTitleChange', table.id, newValue);
+    if (newValue == table.title) return;
+    console.log('update table title');
+    updateTableName(table.id, newValue);
+    // updateTask(tableId, 'title', newValue);
+  };
+
   return (
-    <div className="my-10 rounded-lg bg-gray-50 p-6">
-      <h2 className="mb-4 text-lg">{table.title}</h2>
+    <div className="my-10 rounded-lg bg-gray-50 p-6 first:mt-0">
+      <h2 className="mb-4 text-lg">
+        <Input
+          className="w-[350px] border-none bg-transparent text-xl"
+          defaultValue={table.title}
+          onBlur={(e) => {
+            handleTitleChange(e.target.value);
+          }}
+        />
+      </h2>
       <table className="table min-w-full text-gray-900">
         <thead className="rounded-lg bg-gray-100 text-left text-sm font-normal">
           <tr>
@@ -68,7 +84,7 @@ export default function TaskTable({
             <th scope="col" className="px-3 py-2 font-medium">
               Priority
             </th>
-            <th scope="col" className="px-3 py-2 font-medium">
+            <th scope="col" className="px-3 py-2 pl-6 font-medium">
               Date
             </th>
             <th scope="col" className="px-3 py-2 font-medium">
@@ -84,8 +100,9 @@ export default function TaskTable({
                 key={task.id}
                 className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
               >
-                <td className="whitespace-nowrap px-3 py-3">
+                <td className="px-3 py-1">
                   <Input
+                    className="border-none bg-transparent"
                     defaultValue={task.title}
                     onBlur={(e) => {
                       handleChange(
@@ -97,7 +114,7 @@ export default function TaskTable({
                     }}
                   />
                 </td>
-                <td className="whitespace-nowrap px-3 py-3">
+                <td className="px-3">
                   <Select
                     defaultValue={task.priority}
                     name="priority"
@@ -127,14 +144,13 @@ export default function TaskTable({
                     </SelectContent>
                   </Select>
                 </td>
-                <td className="whitespace-nowrap px-3 py-3">
-                  {/* {task.date && formatDateToLocal(task.date)} */}
+                <td className="px-3">
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant={'outline'}
                         className={cn(
-                          'w-[150px] justify-start text-left font-normal',
+                          'w-[150px] justify-start border-none bg-transparent text-left font-normal',
                           !task.date && 'text-muted-foreground',
                         )}
                       >
@@ -169,7 +185,7 @@ export default function TaskTable({
                     </PopoverContent>
                   </Popover>
                 </td>
-                <td className="whitespace-nowrap px-3 py-3">
+                <td className="px-3">
                   <Select
                     defaultValue={task.status}
                     name="status"
@@ -218,15 +234,15 @@ export default function TaskTable({
               </tr>
             ))}
 
-          <tr
+          {/* <tr
             onClick={() => setShowForm(!showForm)}
             className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
           >
             {!showForm && <td>+</td>}
-          </tr>
+          </tr> */}
         </tbody>
       </table>
-      {showForm && <CreateTask table_id={table.id} />}
+      <CreateTask table_id={table.id} />
     </div>
   );
 }

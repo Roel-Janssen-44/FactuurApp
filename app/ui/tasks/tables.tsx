@@ -30,15 +30,11 @@ export default async function TaskTables() {
   });
 
   return (
-    <div className="mt-6 flow-root">
-      <div className="inline-block min-w-full align-middle">
-        <div className="rounded-lg p-2 md:pt-0">
-          {tables?.map((table: Table) => (
-            <TasksTable key={table.id} table={table} tasks={table.tasks} />
-          ))}
-          <CreateForm />
-        </div>
-      </div>
+    <div>
+      {tables?.map((table: Table) => (
+        <TasksTable key={table.id} table={table} tasks={table.tasks} />
+      ))}
+      <CreateForm />
     </div>
   );
 }

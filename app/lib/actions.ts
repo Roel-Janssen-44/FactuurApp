@@ -247,7 +247,6 @@ export async function updateTask(
   columnName: string,
   newValue: string,
 ) {
-  const query = generateTaskQuery(taskId, columnName, newValue);
   try {
     switch (columnName) {
       case 'title':
@@ -289,13 +288,22 @@ export async function updateTask(
   redirect('/dashboard/tasks');
 }
 
-const generateTaskQuery = (
-  taskId: string,
-  tableName: string,
-  newValue: string,
-) => {
-  return `UPDATE tasks SET ${tableName}='${newValue}' WHERE id='${taskId}'`;
-};
+export async function updateTableName(tableId: string, newValue: string) {
+  try {
+    await sql`
+      UPDATE tables 
+      SET title=${newValue} 
+      WHERE id=${tableId}
+    `;
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Update Task.',
+    };
+  }
+
+  revalidatePath('/dashboard/tasks');
+  redirect('/dashboard/tasks');
+}
 
 export async function deleteTask(taskId: string) {
   try {
