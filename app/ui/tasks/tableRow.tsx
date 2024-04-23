@@ -1,13 +1,11 @@
 'use client';
 
 import { format } from 'date-fns';
-import { formatDateToLocal } from '@/app/lib/utils';
-import { Task, Table } from '@/app/lib/definitions';
+import { Task } from '@/app/lib/definitions';
 
 import { Button } from '@/components/ui/button';
-import CreateTask from './createTask';
 import { TrashIcon } from '@heroicons/react/24/outline';
-import { updateTask, deleteTask, updateTableName } from '@/app/lib/actions';
+import { updateTask, deleteTask } from '@/app/lib/actions';
 
 import {
   Select,
@@ -16,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+
 import { Calendar } from '@/components/ui/calendar';
 import {
   Popover,
@@ -24,7 +23,7 @@ import {
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { Input } from '@/components/ui/input';
 import { useFormState } from 'react-dom';
 
@@ -38,68 +37,47 @@ export default function TaskTable({
   const initialState = { message: null, errors: {} };
 
   const formRef = useRef(null);
-  const inputRef = useRef(null);
+  const dateInputRef = useRef(null);
 
   const handleBlur = () => {
     if (formRef.current) {
       formRef.current.requestSubmit();
-      console.log('Submitting form');
     }
   };
 
-  const updateTaskWithId = updateTask.bind(null, [tableId, task.id]);
+  const updateTaskWithId = updateTask.bind(null, tableId, task.id);
   const [state, dispatch] = useFormState(updateTaskWithId, initialState);
 
-  //
-
-  // const handleChange = (
-  //   taskId: string,
-  //   columnName: string,
-  //   defaultValue: string,
-  //   newValue: string,
-  // ) => {
-  //   console.log('handleChange', taskId, columnName);
-  //   console.log(defaultValue);
-  //   console.log(newValue);
-  //   if (newValue == defaultValue) return;
-  //   updateTask(taskId, columnName, newValue);
-  // };
-
-  // const handleTitleChange = (newValue: string) => {
-  //   console.log('handleTitleChange', table.id, newValue);
-  //   if (newValue == table.title) return;
-  //   console.log('update table title');
-  //   updateTableName(table.id, newValue);
-  //   // updateTask(tableId, 'title', newValue);
-  // };
-
   return (
-    <form action={dispatch}>
-      <div
-        key={task.id}
-        className="flex w-full flex-row border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
-      >
-        <div className="px-3 py-1">
+    <form
+      key={task.id}
+      ref={formRef}
+      action={dispatch}
+      className="border-b-[1px] border-gray-200 even:bg-gray-100"
+    >
+      <div className="flex w-full flex-row flex-nowrap items-center text-sm transition-colors  last-of-type:border-none hover:bg-gray-200 [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
+        <div className="w-[350px] border-r-[1px] border-gray-200 px-3 py-1">
           <Input
-            className="border-none bg-transparent"
+            name="title"
+            className="cursor-pointer border-none bg-transparent"
             defaultValue={task.title}
             onBlur={(e) => {
               if (e.target.value == '') return;
+              if (e.target.value == task.title) return;
               handleBlur();
-              if (inputRef.current) {
-                inputRef.current.value = '';
-              }
             }}
           />
         </div>
-        <div className="px-3">
+        <div className="w-[175px] border-r-[1px] border-gray-200 px-3">
           <Select
             defaultValue={task.priority}
             name="priority"
             aria-labelledby="priority-error"
-            // onValueChange={(value) =>
-            //   handleChange(task.id, 'priority', task.priority, value)
-            // }
+            onValueChange={(value) => {
+              if (value == '') return;
+              if (value == task.priority) return;
+              handleBlur();
+            }}
           >
             <SelectTrigger
               className={`w-[150px] ${
@@ -109,7 +87,7 @@ export default function TaskTable({
                   ? 'bg-red-600'
                   : task.priority == 'high'
                   ? 'bg-red-800'
-                  : 'bg-transparent'
+                  : 'border-none bg-transparent text-transparent'
               }`}
             >
               <SelectValue placeholder="" />
@@ -122,55 +100,59 @@ export default function TaskTable({
             </SelectContent>
           </Select>
         </div>
-        <div className="px-3">
+        <input
+          aria-hidden
+          className="hidden h-20 w-40 bg-green-500"
+          name="date"
+          type="date"
+          ref={dateInputRef}
+          defaultValue={task.date ? format(task.date, 'PPP') : null}
+        />
+        <div className="w-[175px] border-r-[1px] border-gray-200 px-3">
           <Popover>
-            <PopoverTrigger asChild>
+            <PopoverTrigger asChild name="date">
               <Button
+                name="date"
                 variant={'outline'}
                 className={cn(
-                  'w-[150px] justify-start border-none bg-transparent text-left font-normal',
+                  'w-full justify-start border-none bg-transparent text-left font-normal hover:bg-transparent',
                   !task.date && 'text-muted-foreground',
                 )}
               >
-                {task.date ? format(task.date, 'PPP') : <span></span>}
+                {task.date ? format(task.date, 'PPP') : ''}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
               <Calendar
                 mode="single"
                 selected={new Date(task.date)}
-                // onSelect={(e) => {
-                //   console.log(e);
-                //   console.log(typeof e);
-                //   if (e != null) {
-                //     handleChange(
-                //       task.id,
-                //       'date',
-                //       format(new Date(task.date), 'yyyy-MM-dd'),
-                //       format(e, 'yyyy-MM-dd'),
-                //     );
-                //   } else {
-                //     handleChange(
-                //       task.id,
-                //       'date',
-                //       format(new Date(task.date), 'yyyy-MM-dd'),
-                //       null,
-                //     );
-                //   }
-                // }}
+                onSelect={(e) => {
+                  dateInputRef.current.value = format(e, 'yyyy-MM-dd');
+                  if (
+                    format(new Date(task.date), 'yyyy-MM-dd') ==
+                    format(e, 'yyyy-MM-dd')
+                  ) {
+                    dateInputRef.current.value = '';
+                    return;
+                  }
+                  handleBlur();
+                }}
                 initialFocus
               />
             </PopoverContent>
           </Popover>
         </div>
-        <div className="px-3">
+
+        <div className="w-[175px] border-r-[1px] border-gray-200 px-3">
           <Select
             defaultValue={task.status}
             name="status"
             aria-labelledby="status-error"
-            // onValueChange={(value) =>
-            //   handleChange(task.id, 'status', task.status, value)
-            // }
+            onValueChange={(value) => {
+              if (value == '') return;
+              if (value == task.status) return;
+              handleBlur();
+            }}
           >
             <SelectTrigger
               className={`w-[150px] ${
@@ -196,7 +178,7 @@ export default function TaskTable({
             </SelectContent>
           </Select>
         </div>
-        <div>
+        <div className="px-3">
           <Button
             onClick={() => deleteTask(task.id)}
             size="icon"

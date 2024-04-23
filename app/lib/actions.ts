@@ -7,6 +7,8 @@ import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 
+import { formatDateToLocal } from '../../app/lib/utils';
+
 const FormSchema = z.object({
   id: z.string(),
   customerId: z.string({
@@ -269,51 +271,41 @@ export async function createTask(
 }
 
 export async function updateTask(
+  tableId: string,
   taskId: string,
   prevState: TaskState,
   formData: FormData,
-  // columnName: string,
-  // newValue: string,
 ) {
-  console.log('formData');
-  console.log(formData);
+  const title = formData.get('title');
+  const priority = formData.get('priority');
+  const status = formData.get('status');
+  const date = formData.get('date').toString();
 
-  // try {
-  //   switch (columnName) {
-  //     case 'title':
-  //       await sql`
-  //         UPDATE tasks
-  //         SET title=${newValue}
-  //         WHERE id=${taskId}
-  //       `;
-  //       break;
-  //     case 'priority':
-  //       await sql`
-  //         UPDATE tasks
-  //         SET priority=${newValue}
-  //         WHERE id=${taskId}
-  //       `;
-  //       break;
-  //     case 'date':
-  //       await sql`
-  //         UPDATE tasks
-  //         SET date=${newValue}
-  //         WHERE id=${taskId}
-  //       `;
-  //       break;
-  //     case 'status':
-  //       await sql`
-  //         UPDATE tasks
-  //         SET status=${newValue}
-  //         WHERE id=${taskId}
-  //       `;
-  //       break;
-  //   }
-  // } catch (error) {
-  //   return {
-  //     message: 'Database Error: Failed to Update Task.',
-  //   };
-  // }
+  let validatedDate: string | null;
+  if (date == '') {
+    validatedDate = null;
+  } else {
+    validatedDate = new Date(date).toDateString();
+  }
+
+  if (typeof title != 'string') return;
+  if (typeof priority != 'string') return;
+  if (typeof status != 'string') return;
+
+  try {
+    sql`
+      UPDATE tasks
+      set
+      title=${title},
+      priority=${priority},
+      status=${status},
+      date=${validatedDate}
+      WHERE id=${taskId}`;
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Update Task.',
+    };
+  }
 
   revalidatePath('/dashboard/tasks');
   redirect('/dashboard/tasks');

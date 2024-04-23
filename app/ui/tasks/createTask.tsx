@@ -8,9 +8,6 @@ import { Input } from '@/components/ui/input';
 export default function CreateTask({ table_id }: { table_id: string }) {
   const initialState = { message: null, errors: {} };
 
-  // const createTaskWithId = createTask.bind(null, table_id);
-  // const [state, dispatch] = useFormState(createTaskWithId, initialState);
-
   const formRef = useRef(null);
   const inputRef = useRef(null);
 
