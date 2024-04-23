@@ -26,24 +26,28 @@ const TableSchema = z.object({
   title: z.string(),
 });
 
-const TaskSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  priority: z.string(),
-  date: z.string(),
-  status: z.string(),
-});
+// const TaskSchema = z.object({
+//   id: z.string(),
+//   title: z.string({
+//     invalid_type_error: 'Please fill in a title.',
+//   }),
+//   // To do - create enum for priority
+//   priority: z.string(),
+//   date: z.string(),
+//   // To do - create enum for status
+//   status: z.string(),
+// });
 
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
 const CreateTable = TableSchema.omit({ id: true });
-const CreateTask = TaskSchema.omit({
-  id: true,
-  priority: true,
-  date: true,
-  status: true,
-});
+// const CreateTask = TaskSchema.omit({
+//   id: true,
+//   priority: true,
+//   date: true,
+//   status: true,
+// });
 
 export type State = {
   errors?: {
@@ -60,15 +64,16 @@ export type TableState = {
   };
   message?: string | null;
 };
-export type TaskState = {
-  errors?: {
-    title?: string[];
-    priority?: string[];
-    date?: string[];
-    status?: string[];
-  };
-  message?: string | null;
-};
+
+// export type TaskState = {
+//   errors?: {
+//     title?: string[];
+//     priority?: string[];
+//     date?: string[];
+//     status?: string[];
+//   };
+//   message?: string | null;
+// };
 
 export async function createInvoice(prevState: State, formData: FormData) {
   // Validate form using Zod
@@ -203,86 +208,112 @@ export async function createTable(prevState: TableState, formData: FormData) {
   redirect('/dashboard/tasks');
 }
 
+// const CreateTaskSchema = z.object({
+//   id: z.string(),
+//   title: z.string({
+//     invalid_type_error: 'Please fill in a title.',
+//   }),
+// });
+
+// const CreateTask = CreateTaskSchema.omit({
+//   id: true,
+// });
+
+export type TaskState = {
+  errors?: {
+    title: string[];
+    priority?: string[];
+    date?: string[];
+    status?: string[];
+  };
+  message?: string | null;
+};
+
 export async function createTask(
   table_id: string,
   prevState: TaskState,
   formData: FormData,
 ) {
-  const validatedFields = CreateTask.safeParse({
-    title: formData.get('title'),
-  });
+  const title = formData.get('title');
 
-  console.log('validatedFields', validatedFields);
-  console.log(validatedFields.error);
-  if (!validatedFields.success) {
+  if (typeof title !== 'string' || title.trim() === '') {
+    console.log('Validation failed: Title is required.');
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Create Table.',
+      errors: { title: ['Title is required'] },
+      message: 'Missing Fields. Failed to Create Task.',
     };
   }
 
-  const { title } = validatedFields.data;
+  if (title.length < 3 || title.length > 100) {
+    console.log(
+      'Validation failed: Title must be between 3 and 100 characters.',
+    );
+    return {
+      errors: { title: ['Title must be between 3 and 100 characters'] },
+      message: 'Validation Error. Failed to Create Task.',
+    };
+  }
 
-  console.log('craeteing task');
-  console.log(title);
-  console.log(table_id);
   try {
     await sql`
       INSERT INTO tasks (title, table_id)
       VALUES (${title}, ${table_id})
     `;
-    console.log('task created');
   } catch (error) {
     return {
       message: 'Database Error: Failed to Create Task.',
     };
   }
-
   revalidatePath('/dashboard/tasks');
   redirect('/dashboard/tasks');
 }
 
 export async function updateTask(
   taskId: string,
-  columnName: string,
-  newValue: string,
+  prevState: TaskState,
+  formData: FormData,
+  // columnName: string,
+  // newValue: string,
 ) {
-  try {
-    switch (columnName) {
-      case 'title':
-        await sql`
-          UPDATE tasks 
-          SET title=${newValue} 
-          WHERE id=${taskId}
-        `;
-        break;
-      case 'priority':
-        await sql`
-          UPDATE tasks 
-          SET priority=${newValue} 
-          WHERE id=${taskId}
-        `;
-        break;
-      case 'date':
-        await sql`
-          UPDATE tasks 
-          SET date=${newValue} 
-          WHERE id=${taskId}
-        `;
-        break;
-      case 'status':
-        await sql`
-          UPDATE tasks 
-          SET status=${newValue} 
-          WHERE id=${taskId}
-        `;
-        break;
-    }
-  } catch (error) {
-    return {
-      message: 'Database Error: Failed to Update Task.',
-    };
-  }
+  console.log('formData');
+  console.log(formData);
+
+  // try {
+  //   switch (columnName) {
+  //     case 'title':
+  //       await sql`
+  //         UPDATE tasks
+  //         SET title=${newValue}
+  //         WHERE id=${taskId}
+  //       `;
+  //       break;
+  //     case 'priority':
+  //       await sql`
+  //         UPDATE tasks
+  //         SET priority=${newValue}
+  //         WHERE id=${taskId}
+  //       `;
+  //       break;
+  //     case 'date':
+  //       await sql`
+  //         UPDATE tasks
+  //         SET date=${newValue}
+  //         WHERE id=${taskId}
+  //       `;
+  //       break;
+  //     case 'status':
+  //       await sql`
+  //         UPDATE tasks
+  //         SET status=${newValue}
+  //         WHERE id=${taskId}
+  //       `;
+  //       break;
+  //   }
+  // } catch (error) {
+  //   return {
+  //     message: 'Database Error: Failed to Update Task.',
+  //   };
+  // }
 
   revalidatePath('/dashboard/tasks');
   redirect('/dashboard/tasks');
