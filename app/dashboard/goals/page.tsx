@@ -1,5 +1,5 @@
-import GoalTables from '@/app/ui/tasks/goalTables';
-import { lusitana } from '@/app/ui/fonts';
+import GoalTables from '@/app/components/goals/tables';
+import { lusitana } from '@/app/components/fonts';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 export const metadata: Metadata = {

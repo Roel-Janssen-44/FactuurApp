@@ -1,5 +1,5 @@
-import Tables from '@/app/ui/tasks/taskTables';
-import { lusitana } from '@/app/ui/fonts';
+import Tables from '@/app/components/tasks/tables';
+import { lusitana } from '@/app/components/fonts';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 export const metadata: Metadata = {

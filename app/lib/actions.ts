@@ -237,6 +237,8 @@ export async function createTask(
     };
   }
 
+  console.log('Creating task:', title);
+
   try {
     await sql`
       INSERT INTO tasks (title, table_id)
@@ -247,8 +249,10 @@ export async function createTask(
       message: 'Database Error: Failed to Create Task.',
     };
   }
+  revalidatePath('/dashboard');
   revalidatePath('/dashboard/tasks');
-  redirect('/dashboard/tasks');
+  revalidatePath('/dashboard/goals');
+  // redirect('/dashboard/tasks');
 }
 
 export async function updateTask(
@@ -288,8 +292,10 @@ export async function updateTask(
     };
   }
 
+  revalidatePath('/dashboard');
   revalidatePath('/dashboard/tasks');
-  redirect('/dashboard/tasks');
+  revalidatePath('/dashboard/goals');
+  // redirect('/dashboard/tasks');
 }
 
 export async function updateTableName(tableId: string, newValue: string) {
@@ -305,8 +311,10 @@ export async function updateTableName(tableId: string, newValue: string) {
     };
   }
 
+  revalidatePath('/dashboard');
   revalidatePath('/dashboard/tasks');
-  redirect('/dashboard/tasks');
+  revalidatePath('/dashboard/goals');
+  // redirect('/dashboard/tasks');
 }
 
 export async function deleteTask(taskId: string) {
@@ -320,6 +328,8 @@ export async function deleteTask(taskId: string) {
     };
   }
 
+  revalidatePath('/dashboard');
   revalidatePath('/dashboard/tasks');
-  redirect('/dashboard/tasks');
+  revalidatePath('/dashboard/goals');
+  // redirect('/dashboard/tasks');
 }

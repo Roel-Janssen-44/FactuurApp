@@ -1,26 +1,26 @@
-import { Card } from '@/app/ui/dashboard/cards';
-import RevenueChart from '@/app/ui/dashboard/revenue-chart';
-import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
-import { lusitana } from '@/app/ui/fonts';
+import { Card } from '@/app/components/dashboard/cards';
+import RevenueChart from '@/app/components/dashboard/revenue-chart';
+import LatestInvoices from '@/app/components/dashboard/latest-invoices';
+import { lusitana } from '@/app/components/fonts';
 import { Suspense } from 'react';
 import {
   RevenueChartSkeleton,
   LatestInvoicesSkeleton,
   CardsSkeleton,
-} from '@/app/ui/skeletons';
-import CardWrapper from '@/app/ui/dashboard/cards';
+} from '@/app/components/skeletons';
+import CardWrapper from '@/app/components/dashboard/cards';
 import { Metadata } from 'next';
-import Tables from '@/app/ui/tasks/taskTables';
-import TasksToday from '@/app/ui/tasks/today';
-import TasksTomorrow from '@/app/ui/tasks/tomorrow';
-import Goals from '@/app/ui/tasks/goals';
+import Tables from '@/app/components/tasks/tables';
+import TasksToday from '@/app/components/dashboard/today';
+import TasksTomorrow from '@/app/components/dashboard/tomorrow';
+import Goals from '@/app/components/goals/tables';
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
+} from '@/app/components/chadcn/accordion';
 
 export const metadata: Metadata = {
   title: 'Dashboard',

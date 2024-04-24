@@ -268,8 +268,9 @@ export async function fetchGoalTables() {
 export async function fetchTasks() {
   try {
     const data = await sql`
-    SELECT * FROM tasks
-    ORDER BY "order" ASC
+      SELECT * FROM tasks
+      WHERE "type" = 'task'
+      ORDER BY "order" ASC
     `;
 
     return data.rows;
@@ -282,9 +283,9 @@ export async function fetchTasks() {
 export async function fetchTasksToday() {
   try {
     const data = await sql`
-    SELECT * FROM tasks
-    WHERE date = CURRENT_DATE
-    ORDER BY "order" ASC
+      SELECT * FROM tasks
+      WHERE date = CURRENT_DATE
+      ORDER BY "order" ASC
     `;
 
     return data.rows;
@@ -297,9 +298,9 @@ export async function fetchTasksToday() {
 export async function fetchTasksTomorrow() {
   try {
     const data = await sql`
-    SELECT * FROM tasks
-    WHERE date = CURRENT_DATE + INTERVAL '1 day'
-    ORDER BY "order" ASC
+      SELECT * FROM tasks
+      WHERE date = CURRENT_DATE + INTERVAL '1 day'
+      ORDER BY "order" ASC
     `;
 
     return data.rows;
@@ -312,9 +313,9 @@ export async function fetchTasksTomorrow() {
 export async function fetchGoals() {
   try {
     const data = await sql`
-    SELECT * FROM tasks
-    WHERE date = CURRENT_DATE + INTERVAL '1 day'
-    ORDER BY "order" ASC
+      SELECT * FROM tasks
+      WHERE "type" = 'goal'
+      ORDER BY "order" ASC
     `;
 
     return data.rows;

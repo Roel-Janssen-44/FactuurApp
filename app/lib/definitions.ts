@@ -9,7 +9,7 @@ export type Task = {
   table_id: string;
 };
 
-export type GoalTask = Task & {
+export type Goal = Task & {
   repeat?: boolean;
   daysPerWeek?: number;
 };
@@ -17,7 +17,8 @@ export type GoalTask = Task & {
 export type Table = {
   id: string;
   title: string;
-  tasks: Task[] | GoalTask[];
+  tasks?: Task[];
+  goals?: Goal[];
   type: 'task' | 'goal';
 };
 
