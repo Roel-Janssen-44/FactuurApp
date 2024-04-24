@@ -257,7 +257,52 @@ export async function fetchTables() {
 export async function fetchTasks() {
   try {
     const data = await sql`
-    select * from tasks
+    SELECT * FROM tasks
+    ORDER BY "order" ASC
+    `;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch tasks.');
+  }
+}
+// Fetch tasks of today
+export async function fetchTasksToday() {
+  try {
+    const data = await sql`
+    SELECT * FROM tasks
+    WHERE date = CURRENT_DATE
+    ORDER BY "order" ASC
+    `;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch tasks.');
+  }
+}
+// Fetch tasks for tomorrow
+export async function fetchTasksTomorrow() {
+  try {
+    const data = await sql`
+    SELECT * FROM tasks
+    WHERE date = CURRENT_DATE + INTERVAL '1 day'
+    ORDER BY "order" ASC
+    `;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch tasks.');
+  }
+}
+// Fetch goals
+export async function fetchGoals() {
+  try {
+    const data = await sql`
+    SELECT * FROM tasks
+    WHERE date = CURRENT_DATE + INTERVAL '1 day'
     ORDER BY "order" ASC
     `;
 

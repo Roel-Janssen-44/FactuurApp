@@ -53,9 +53,9 @@ export default function TaskTable({
       key={task.id}
       ref={formRef}
       action={dispatch}
-      className="border-b-[1px] border-gray-200 even:bg-gray-100"
+      className="border-b-[1px] border-gray-200 odd:bg-gray-100"
     >
-      <div className="flex w-full flex-row flex-nowrap items-center text-sm transition-colors  last-of-type:border-none hover:bg-gray-200 [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
+      <div className="flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-200">
         <div className="w-[350px] border-r-[1px] border-gray-200 px-3 py-1">
           <Input
             name="title"
