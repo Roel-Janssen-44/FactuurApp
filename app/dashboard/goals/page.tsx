@@ -1,4 +1,4 @@
-import Tables from '@/app/ui/tasks/taskTables';
+import GoalTables from '@/app/ui/tasks/goalTables';
 import { lusitana } from '@/app/ui/fonts';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 export default async function Page() {
   return (
     <div className="w-full">
-      <h1 className={`${lusitana.className} mb-4 text-2xl`}>Tasks</h1>
+      <h1 className={`${lusitana.className} mb-4 text-2xl`}>Goals</h1>
       <Suspense fallback={'fallback'}>
-        <Tables />
+        <GoalTables />
       </Suspense>
     </div>
   );

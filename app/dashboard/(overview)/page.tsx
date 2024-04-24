@@ -10,7 +10,7 @@ import {
 } from '@/app/ui/skeletons';
 import CardWrapper from '@/app/ui/dashboard/cards';
 import { Metadata } from 'next';
-import Tables from '@/app/ui/tasks/tables';
+import Tables from '@/app/ui/tasks/taskTables';
 import TasksToday from '@/app/ui/tasks/today';
 import TasksTomorrow from '@/app/ui/tasks/tomorrow';
 import Goals from '@/app/ui/tasks/goals';

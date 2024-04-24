@@ -1,10 +1,10 @@
 'use client';
 
 import {
-  UserGroupIcon,
   HomeIcon,
   DocumentDuplicateIcon,
   ClipboardDocumentListIcon,
+  ClipboardDocumentCheckIcon,
 } from '@heroicons/react/24/outline';
 
 import Link from 'next/link';
@@ -21,6 +21,7 @@ const links = [
   // },
   // { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
   { name: 'Tasks', href: '/dashboard/tasks', icon: ClipboardDocumentListIcon },
+  { name: 'Goals', href: '/dashboard/goals', icon: ClipboardDocumentCheckIcon },
 ];
 
 export default function NavLinks() {

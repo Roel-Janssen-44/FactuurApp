@@ -1,20 +1,14 @@
 'use client';
 
-import Link from 'next/link';
-import {
-  CheckIcon,
-  ClockIcon,
-  CurrencyDollarIcon,
-  UserCircleIcon,
-} from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import { createTable } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
 
-export default function CreateTable() {
+export default function CreateTable({ type }: { type: 'goal' | 'task' }) {
   const initialState = { message: null, errors: {} };
 
-  const [state, dispatch] = useFormState(createTable, initialState);
+  const createTableWithType = createTable.bind(null, type);
+  const [state, dispatch] = useFormState(createTableWithType, initialState);
 
   return (
     <form action={dispatch}>
@@ -38,14 +32,14 @@ export default function CreateTable() {
           </div>
         </div>
 
-        <div id="title-error" aria-live="polite" aria-atomic="true">
+        {/* <div id="title-error" aria-live="polite" aria-atomic="true">
           {state.errors?.title &&
             state.errors.title.map((error: string) => (
               <p className="mt-2 text-sm text-red-500" key={error}>
                 {error}
               </p>
             ))}
-        </div>
+        </div> */}
       </div>
 
       <div className="flex justify-end gap-4">

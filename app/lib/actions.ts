@@ -26,30 +26,13 @@ const FormSchema = z.object({
 const TableSchema = z.object({
   id: z.string(),
   title: z.string(),
+  type: z.string(),
 });
-
-// const TaskSchema = z.object({
-//   id: z.string(),
-//   title: z.string({
-//     invalid_type_error: 'Please fill in a title.',
-//   }),
-//   // To do - create enum for priority
-//   priority: z.string(),
-//   date: z.string(),
-//   // To do - create enum for status
-//   status: z.string(),
-// });
 
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
-const CreateTable = TableSchema.omit({ id: true });
-// const CreateTask = TaskSchema.omit({
-//   id: true,
-//   priority: true,
-//   date: true,
-//   status: true,
-// });
+const CreateTable = TableSchema.omit({ id: true, type: true });
 
 export type State = {
   errors?: {
@@ -66,16 +49,6 @@ export type TableState = {
   };
   message?: string | null;
 };
-
-// export type TaskState = {
-//   errors?: {
-//     title?: string[];
-//     priority?: string[];
-//     date?: string[];
-//     status?: string[];
-//   };
-//   message?: string | null;
-// };
 
 export async function createInvoice(prevState: State, formData: FormData) {
   // Validate form using Zod
@@ -181,8 +154,12 @@ export async function authenticate(
   }
 }
 
-export async function createTable(prevState: TableState, formData: FormData) {
-  const validatedFields = TableSchema.safeParse({
+export async function createTable(
+  tableType: string,
+  prevState: TableState,
+  formData: FormData,
+) {
+  const validatedFields = CreateTable.safeParse({
     title: formData.get('title'),
   });
 
@@ -192,13 +169,12 @@ export async function createTable(prevState: TableState, formData: FormData) {
       message: 'Missing Fields. Failed to Create Table.',
     };
   }
-
   const { title } = validatedFields.data;
 
   try {
     await sql`
-      INSERT INTO tables (title)
-      VALUES (${title})
+      INSERT INTO tables (title, type)
+      VALUES (${title}, ${tableType})
     `;
   } catch (error) {
     return {
@@ -206,8 +182,13 @@ export async function createTable(prevState: TableState, formData: FormData) {
     };
   }
 
-  revalidatePath('/dashboard/tasks');
-  redirect('/dashboard/tasks');
+  revalidatePath('/dashboard');
+  if (tableType === 'task') {
+    revalidatePath('/dashboard/tasks');
+  } else if (tableType === 'goal') {
+    revalidatePath('/dashboard/goals');
+  }
+  // redirect('/dashboard/tasks');
 }
 
 // const CreateTaskSchema = z.object({

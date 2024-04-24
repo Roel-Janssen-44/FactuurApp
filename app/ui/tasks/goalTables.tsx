@@ -1,16 +1,18 @@
-import { fetchTables, fetchTasks } from '@/app/lib/data';
+import { fetchGoalTables, fetchGoals } from '@/app/lib/data';
 import { Task, Table } from '@/app/lib/definitions';
 import TasksTable from './table';
 import CreateForm from './createTable';
 
-export default async function TaskTables() {
-  const fetchedTables = await fetchTables();
-  const fetchedTasks = await fetchTasks();
+export default async function GoalTables() {
+  const fetchedTables = await fetchGoalTables();
+  const fetchedTasks = await fetchGoals();
+  //   return <p>asd</p>;
   let tables: Table[] = fetchedTables.map((table) => {
     return {
       id: table.id,
       title: table.title,
       tasks: [],
+      type: 'goal',
     };
   });
 
@@ -28,7 +30,7 @@ export default async function TaskTables() {
       {tables?.map((table: Table) => (
         <TasksTable key={table.id} table={table} tasks={table.tasks} />
       ))}
-      <CreateForm />
+      <CreateForm type="goal" />
     </div>
   );
 }

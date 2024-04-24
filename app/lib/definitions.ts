@@ -18,6 +18,7 @@ export type Table = {
   id: string;
   title: string;
   tasks: Task[] | GoalTask[];
+  type: 'task' | 'goal';
 };
 
 // This file contains type definitions for your data.

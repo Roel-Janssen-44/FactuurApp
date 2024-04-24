@@ -244,7 +244,18 @@ export async function getUser(email: string) {
 // Fetch tables
 export async function fetchTables() {
   try {
-    const data = await sql`SELECT * FROM tables`;
+    const data = await sql`SELECT * FROM tables WHERE type = 'task'`;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    // throw new Error('Failed to fetch tasks.');
+  }
+}
+// Fetch goal tables
+export async function fetchGoalTables() {
+  try {
+    const data = await sql`SELECT * FROM tables WHERE type = 'goal'`;
 
     return data.rows;
   } catch (error) {
