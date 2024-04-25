@@ -77,48 +77,6 @@ export default function GoalTableRow({
             className="absolute left-0 top-0 block h-full w-full cursor-pointer bg-transparent"
           ></label>
         </div>
-        <input
-          aria-hidden
-          className="hidden"
-          name="date"
-          type="date"
-          ref={dateInputRef}
-          defaultValue={goal.date ? format(goal.date, 'PPP') : null}
-        />
-        <div className="w-[175px] border-r-[1px] border-gray-200 px-3">
-          <Popover>
-            <PopoverTrigger asChild name="date">
-              <Button
-                name="date"
-                variant={'outline'}
-                className={cn(
-                  'w-full justify-start border-none bg-transparent text-left font-normal hover:bg-transparent',
-                  !goal.date && 'text-muted-foreground',
-                )}
-              >
-                {goal.date ? format(goal.date, 'PPP') : ''}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
-              <Calendar
-                mode="single"
-                selected={new Date(goal.date)}
-                onSelect={(e) => {
-                  dateInputRef.current.value = format(e, 'yyyy-MM-dd');
-                  if (
-                    format(new Date(goal.date), 'yyyy-MM-dd') ==
-                    format(e, 'yyyy-MM-dd')
-                  ) {
-                    dateInputRef.current.value = '';
-                    return;
-                  }
-                  handleBlur();
-                }}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
-        </div>
 
         <div className="w-[175px] border-r-[1px] border-gray-200 px-3">
           <Select
@@ -147,14 +105,17 @@ export default function GoalTableRow({
               <SelectValue placeholder="" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="null">None</SelectItem>
-              <SelectItem value="planned">Planned</SelectItem>
-              <SelectItem value="working on it">Working on it</SelectItem>
-              <SelectItem value="done">Done</SelectItem>
-              <SelectItem value="stuck">Stuck</SelectItem>
+              <SelectItem value="1">1</SelectItem>
+              <SelectItem value="2">2</SelectItem>
+              <SelectItem value="3">3</SelectItem>
+              <SelectItem value="4">4</SelectItem>
+              <SelectItem value="5">5</SelectItem>
+              <SelectItem value="6">6</SelectItem>
+              <SelectItem value="7">7</SelectItem>
             </SelectContent>
           </Select>
         </div>
+
         <div className="px-3">
           <Button
             onClick={() => deleteTask(goal.id)}

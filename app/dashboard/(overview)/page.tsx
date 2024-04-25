@@ -21,6 +21,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/app/components/chadcn/accordion';
+import WeeklyView from '@/app/components/dashboard/weeklyView';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -37,6 +38,9 @@ export default async function Page() {
         defaultValue={['My tasks', 'My goals']}
         className="w-full"
       >
+        <Suspense fallback={'Loading weekly view'}>
+          <WeeklyView />
+        </Suspense>
         <div className="grid gap-6 sm:grid-cols-2">
           <Suspense fallback={'Loading tasks of today'}>
             <TasksToday />

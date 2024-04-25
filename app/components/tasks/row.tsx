@@ -100,15 +100,15 @@ export default function TaskTable({
             </SelectContent>
           </Select>
         </div>
-        <input
-          aria-hidden
-          className="hidden h-20 w-40 bg-green-500"
-          name="date"
-          type="date"
-          ref={dateInputRef}
-          defaultValue={task.date ? format(task.date, 'PPP') : null}
-        />
         <div className="w-[175px] border-r-[1px] border-gray-200 px-3">
+          <input
+            aria-hidden
+            className="hidden h-20 w-40 bg-green-500"
+            name="date"
+            type="date"
+            ref={dateInputRef}
+            defaultValue={task.date ? format(task.date, 'PPP') : null}
+          />
           <Popover>
             <PopoverTrigger asChild name="date">
               <Button
