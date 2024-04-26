@@ -15,6 +15,8 @@ import {
   SelectValue,
 } from '@/app/components/chadcn/select';
 
+import { Checkbox } from '@components/chadcn/checkbox';
+
 import { Calendar } from '@/app/components/chadcn/calendar';
 import {
   Popover,
@@ -37,6 +39,8 @@ export default function TaskTable({
   const initialState = { message: null, errors: {} };
 
   const formRef = useRef(null);
+  const checkboxRef = useRef(null);
+  const statusRef = useRef(null);
   const dateInputRef = useRef(null);
 
   const handleBlur = () => {
@@ -53,9 +57,32 @@ export default function TaskTable({
       key={task.id}
       ref={formRef}
       action={dispatch}
-      className="border-b-[1px] border-gray-200 odd:bg-gray-100"
+      className={`relative flex flex-row border-b-[1px] border-gray-200 odd:bg-gray-100`}
     >
       <div className="flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-200">
+        {task.completed && (
+          <>
+            <div className="absolute left-0 top-0 h-full w-full bg-black bg-opacity-20"></div>
+            <div className="absolute left-[1%] top-1/2 h-[1px] w-[98%] -translate-y-1/2 rounded bg-black "></div>
+          </>
+        )}
+        <div
+          className={`relative flex w-[50px] items-center justify-center border-r-[1px] border-gray-200 px-3 py-1`}
+        >
+          <Checkbox
+            ref={checkboxRef}
+            id={task.id}
+            name="completed"
+            defaultChecked={task.completed}
+            onCheckedChange={(value) => {
+              handleBlur();
+            }}
+          />
+          <label
+            className="absolute left-0 top-0 h-full w-full cursor-pointer"
+            htmlFor={task.id}
+          ></label>
+        </div>
         <div className="w-[350px] border-r-[1px] border-gray-200 px-3 py-1">
           <Input
             name="title"
@@ -82,11 +109,11 @@ export default function TaskTable({
             <SelectTrigger
               className={`w-[150px] ${
                 task.priority == 'low'
-                  ? 'bg-red-400'
+                  ? 'bg-red-200'
                   : task.priority == 'medium'
-                  ? 'bg-red-600'
+                  ? 'bg-red-400'
                   : task.priority == 'high'
-                  ? 'bg-red-800'
+                  ? 'bg-red-600'
                   : 'border-none bg-transparent text-transparent'
               }`}
             >
@@ -107,7 +134,7 @@ export default function TaskTable({
             name="date"
             type="date"
             ref={dateInputRef}
-            defaultValue={task.date ? format(task.date, 'PPP') : null}
+            defaultValue={task.date ? format(task.date, 'yyyy-MM-dd') : null}
           />
           <Popover>
             <PopoverTrigger asChild name="date">
@@ -119,7 +146,7 @@ export default function TaskTable({
                   !task.date && 'text-muted-foreground',
                 )}
               >
-                {task.date ? format(task.date, 'PPP') : ''}
+                {task.date ? format(task.date, 'yyyy-MM-dd') : ''}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
@@ -144,8 +171,22 @@ export default function TaskTable({
         </div>
 
         <div className="w-[175px] border-r-[1px] border-gray-200 px-3">
-          <Select
-            defaultValue={task.status}
+          <Button
+            variant="ghost"
+            onClick={null}
+            className={`transition-color w-full rounded-md text-left opacity-100 ${
+              task.status == 'planned'
+                ? 'bg-blue-200 hover:bg-blue-300'
+                : task.status == 'done'
+                ? 'bg-green-200 hover:bg-green-300'
+                : 'bg-red-200 hover:bg-red-300'
+            }
+          `}
+          >
+            {task.status || 'Not planned'}
+          </Button>
+          {/* <Select
+            value={task.status}
             name="status"
             aria-labelledby="status-error"
             onValueChange={(value) => {
@@ -176,7 +217,7 @@ export default function TaskTable({
               <SelectItem value="done">Done</SelectItem>
               <SelectItem value="stuck">Stuck</SelectItem>
             </SelectContent>
-          </Select>
+          </Select> */}
         </div>
         <div className="px-3">
           <Button

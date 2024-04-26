@@ -39,9 +39,9 @@ export default function TaskTableRow({
             <div className="inline-block w-[350px] px-4 py-3 pb-2 font-medium sm:pl-6">
               Title
             </div>
-            <div className="inline-block w-[175px] px-3 py-3 pb-2 font-medium">
+            {/* <div className="inline-block w-[175px] px-3 py-3 pb-2 font-medium">
               Repeating task
-            </div>
+            </div> */}
             <div className="inline-block w-[175px] px-3 py-3 pb-2 font-medium">
               Days per week
             </div>
@@ -52,7 +52,7 @@ export default function TaskTableRow({
             goals.map((goal: Goal) => (
               <TableRow goal={goal} tableId={table.id} key={goal.id} />
             ))}
-          <CreateTask table_id={table.id} />
+          <CreateTask table_id={table.id} type="goal" />
         </div>
       </div>
     </div>

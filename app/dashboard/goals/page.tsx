@@ -11,7 +11,7 @@ export default async function Page() {
     <div className="w-full">
       <h1 className={`${lusitana.className} mb-4 text-2xl`}>Goals</h1>
       <Suspense fallback={'fallback'}>
-        <GoalTables />
+        <GoalTables showCreateNewTable={true} />
       </Suspense>
     </div>
   );

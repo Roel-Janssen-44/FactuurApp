@@ -10,9 +10,9 @@ import {
 } from '@/app/components/skeletons';
 import CardWrapper from '@/app/components/dashboard/cards';
 import { Metadata } from 'next';
-import Tables from '@/app/components/tasks/tables';
 import TasksToday from '@/app/components/dashboard/today';
 import TasksTomorrow from '@/app/components/dashboard/tomorrow';
+import Tables from '@/app/components/tasks/tables';
 import Goals from '@/app/components/goals/tables';
 
 import {
@@ -48,18 +48,6 @@ export default async function Page() {
           <Suspense fallback={'Loading tasks for tomorrow'}>
             <TasksTomorrow />
           </Suspense>
-          {/* <Suspense fallback={<CardsSkeleton />}>
-          <CardWrapper />
-        </Suspense> */}
-        </div>
-        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-          {/* <Suspense fallback={<RevenueChartSkeleton />}>
-          <RevenueChart />
-        </Suspense>
-
-        <Suspense fallback={<LatestInvoicesSkeleton />}>
-          <LatestInvoices />
-        </Suspense> */}
         </div>
 
         <AccordionItem value={'My tasks'}>
@@ -68,7 +56,7 @@ export default async function Page() {
           </AccordionTrigger>
           <AccordionContent>
             <Suspense fallback={'Loading tasks'}>
-              <Tables />
+              <Tables showCreateNewTable={false} />
             </Suspense>
           </AccordionContent>
         </AccordionItem>
@@ -79,7 +67,7 @@ export default async function Page() {
           </AccordionTrigger>
           <AccordionContent>
             <Suspense fallback={'Loading goald'}>
-              <Goals />
+              <Goals showCreateNewTable={false} />
             </Suspense>
           </AccordionContent>
         </AccordionItem>

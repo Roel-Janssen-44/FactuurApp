@@ -191,29 +191,18 @@ export async function createTable(
   // redirect('/dashboard/tasks');
 }
 
-// const CreateTaskSchema = z.object({
-//   id: z.string(),
-//   title: z.string({
-//     invalid_type_error: 'Please fill in a title.',
-//   }),
-// });
-
-// const CreateTask = CreateTaskSchema.omit({
-//   id: true,
-// });
-
 export type TaskState = {
   errors?: {
     title: string[];
     priority?: string[];
     date?: string[];
-    status?: string[];
   };
   message?: string | null;
 };
 
 export async function createTask(
   table_id: string,
+  type: string,
   prevState: TaskState,
   formData: FormData,
 ) {
@@ -237,12 +226,10 @@ export async function createTask(
     };
   }
 
-  console.log('Creating task:', title);
-
   try {
     await sql`
-      INSERT INTO tasks (title, table_id)
-      VALUES (${title}, ${table_id})
+      INSERT INTO tasks (title, table_id, type)
+      VALUES (${title}, ${table_id}, ${type})
     `;
   } catch (error) {
     return {
@@ -263,8 +250,8 @@ export async function updateTask(
 ) {
   const title = formData.get('title');
   const priority = formData.get('priority');
-  const status = formData.get('status');
   const date = formData.get('date').toString();
+  const completed = formData.get('completed');
 
   let validatedDate: string | null;
   if (date == '') {
@@ -273,19 +260,105 @@ export async function updateTask(
     validatedDate = new Date(date).toDateString();
   }
 
+  let completedBool: boolean;
+  if (completed == 'on') {
+    completedBool = true;
+  } else {
+    completedBool = false;
+  }
+
   if (typeof title != 'string') return;
   if (typeof priority != 'string') return;
-  if (typeof status != 'string') return;
 
-  try {
-    sql`
+  // Completed
+  if (completedBool) {
+    console.log('completed');
+    try {
+      sql`
       UPDATE tasks
       set
       title=${title},
+      completed=true,
       priority=${priority},
-      status=${status},
+      status='done',
       date=${validatedDate}
       WHERE id=${taskId}`;
+    } catch (error) {
+      return {
+        message: 'Database Error: Failed to Update Task.',
+      };
+    }
+    // Planned
+  } else if (!completedBool && validatedDate != null) {
+    console.log('Planned');
+    try {
+      sql`
+      UPDATE tasks
+      set
+      title=${title},
+      completed=false,
+      priority=${priority},
+      status='planned',
+      date=${validatedDate}
+      WHERE id=${taskId}`;
+    } catch (error) {
+      return {
+        message: 'Database Error: Failed to Update Task.',
+      };
+    }
+    // Not planned
+  } else {
+    console.log('not planned');
+    try {
+      sql`
+        UPDATE tasks
+        set
+        title=${title},
+        completed=false,
+        priority=${priority},
+        status=null,
+        date=null
+        WHERE id=${taskId}`;
+    } catch (error) {
+      return {
+        message: 'Database Error: Failed to Update Task.',
+      };
+    }
+  }
+
+  revalidatePath('/dashboard');
+  revalidatePath('/dashboard/tasks');
+  revalidatePath('/dashboard/goals');
+  // redirect('/dashboard/tasks');
+}
+
+export type GoalState = {
+  errors?: {
+    title: string[];
+    daysPerWeek?: string[];
+  };
+  message?: string | null;
+};
+export async function updateGoal(
+  tableId: string,
+  goalId: string,
+  prevState: GoalState,
+  formData: FormData,
+) {
+  const title = formData.get('title');
+  const daysPerWeek = formData.get('daysPerWeek');
+
+  if (typeof title != 'string') return;
+  if (typeof daysPerWeek != 'string') return;
+  const daysPerWeekInt = parseInt(daysPerWeek);
+
+  try {
+    sql`
+    UPDATE tasks
+    set
+    title=${title},
+    daysperweek=${daysPerWeekInt}
+    WHERE id=${goalId}`;
   } catch (error) {
     return {
       message: 'Database Error: Failed to Update Task.',
@@ -332,4 +405,53 @@ export async function deleteTask(taskId: string) {
   revalidatePath('/dashboard/tasks');
   revalidatePath('/dashboard/goals');
   // redirect('/dashboard/tasks');
+}
+
+export type WeeklyTaskState = {
+  errors?: {
+    monday?: string[];
+    tuesday?: string[];
+    wednesday?: string[];
+    thursday?: string[];
+    friday?: string[];
+    saturday?: string[];
+    sunday?: string[];
+  };
+  message?: string | null;
+};
+export async function updateWeeklyTask(
+  taskId: string,
+  prevState: WeeklyTaskState,
+  formData: FormData,
+) {
+  console.log('updateWeeklyTask');
+  console.log('taskId', taskId);
+  console.log('formData', formData);
+
+  const monday = formData.get('monday');
+  console.log('monday');
+  console.log(monday);
+  // const daysPerWeek = formData.get('daysPerWeek');
+
+  // if (typeof title != 'string') return;
+  // if (typeof daysPerWeek != 'string') return;
+  // const daysPerWeekInt = parseInt(daysPerWeek);
+
+  // try {
+  //   sql`
+  //   UPDATE tasks
+  //   set
+  //   title=${title},
+  //   daysperweek=${daysPerWeekInt}
+  //   WHERE id=${goalId}`;
+  // } catch (error) {
+  //   return {
+  //     message: 'Database Error: Failed to Update Task.',
+  //   };
+  // }
+
+  // revalidatePath('/dashboard');
+  // revalidatePath('/dashboard/tasks');
+  // revalidatePath('/dashboard/goals');
+  // // redirect('/dashboard/tasks');
 }

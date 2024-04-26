@@ -1,9 +1,13 @@
 import { fetchTables, fetchTasks } from '@/app/lib/data';
 import { Task, Table } from '@/app/lib/definitions';
 import TasksTable from './table';
-import CreateForm from '../createTable';
+import CreateForm from '@components/createTable';
 
-export default async function TaskTables() {
+export default async function TaskTables({
+  showCreateNewTable,
+}: {
+  showCreateNewTable: boolean;
+}) {
   const fetchedTables = await fetchTables();
   const fetchedTasks = await fetchTasks();
   let tables: Table[] = fetchedTables?.map((table) => {
@@ -29,7 +33,7 @@ export default async function TaskTables() {
       {tables?.map((table: Table) => (
         <TasksTable key={table.id} table={table} tasks={table.tasks} />
       ))}
-      <CreateForm type="task" />
+      {showCreateNewTable && <CreateForm type="task" />}
     </div>
   );
 }

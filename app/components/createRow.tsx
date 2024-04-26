@@ -5,7 +5,13 @@ import { createTask } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
 import { Input } from '@/app/components/chadcn/input';
 
-export default function CreateTask({ table_id }: { table_id: string }) {
+export default function CreateTask({
+  table_id,
+  type,
+}: {
+  table_id: string;
+  type: 'goal' | 'task';
+}) {
   const initialState = { message: null, errors: {} };
 
   const formRef = useRef(null);
@@ -18,7 +24,7 @@ export default function CreateTask({ table_id }: { table_id: string }) {
     }
   };
 
-  const createTaskWithTableId = createTask.bind(null, table_id);
+  const createTaskWithTableId = createTask.bind(null, table_id, type);
   const [state, dispatch] = useFormState(createTaskWithTableId, initialState);
 
   return (

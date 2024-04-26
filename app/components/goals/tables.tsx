@@ -3,7 +3,11 @@ import { Table, Goal } from '@/app/lib/definitions';
 import GoalTable from './table';
 import CreateTable from '@components/createTable';
 
-export default async function GoalTables() {
+export default async function GoalTables({
+  showCreateNewTable,
+}: {
+  showCreateNewTable: boolean;
+}) {
   const fetchedTables = await fetchGoalTables();
   const fetchedGoals = await fetchGoals();
 
@@ -16,12 +20,20 @@ export default async function GoalTables() {
     };
   });
 
-  fetchedGoals.forEach((goal: Goal) => {
+  fetchedGoals.forEach((goal) => {
     if (!goal.table_id) return;
 
     const table = tables.find((table) => table.id === goal.table_id);
     if (table) {
-      table.goals.push(goal);
+      const changedGoal: Goal = {
+        id: goal.id,
+        title: goal.title,
+        table_id: goal.table_id,
+        daysPerWeek: goal.daysperweek?.toString() || '0',
+        completed: goal.completed,
+      };
+
+      table.goals.push(changedGoal);
     }
   });
 
@@ -30,7 +42,7 @@ export default async function GoalTables() {
       {tables?.map((table: Table) => (
         <GoalTable key={table.id} table={table} goals={table.goals} />
       ))}
-      <CreateTable type="goal" />
+      {showCreateNewTable && <CreateTable type="goal" />}
     </div>
   );
 }
