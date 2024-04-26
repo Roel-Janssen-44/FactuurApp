@@ -1,3 +1,5 @@
+'use server';
+
 import { fetchGoals } from '@/app/lib/data';
 import { Goal } from '@/app/lib/definitions';
 import { format, startOfWeek, addDays } from 'date-fns';
@@ -7,16 +9,10 @@ import { Checkbox } from '@components/chadcn/checkbox';
 import WeeklyViewRow from './weeklyViewRow';
 
 export default async function WeeklyView() {
-  const fetchedTasks = await fetchGoals();
-  console.log('fetchedTasks');
-  console.log(fetchedTasks);
-
   const fetchedGoals = await fetchGoals();
   let tasks: Goal[] = [];
 
   fetchedGoals.forEach((goal) => {
-    if (!goal.table_id) return;
-
     const changedGoal: Goal = {
       id: goal.id,
       title: goal.title,
@@ -24,25 +20,12 @@ export default async function WeeklyView() {
       daysPerWeek: goal.daysperweek?.toString() || '0',
       completed: goal.completed,
     };
-
     tasks.push(changedGoal);
   });
 
   const currentDate = new Date();
-
   const currentDayOfTheWeek = currentDate.getDay();
   const weekStart = startOfWeek(currentDate, { weekStartsOn: 1 });
-
-  console.log('currentDayOfTheWeek');
-  console.log(currentDayOfTheWeek);
-  console.log('weekStart');
-  console.log(weekStart);
-
-  // To do - get the week start date
-  // const weekStart = '21-04-2024';
-
-  //craete a ref for the date input
-  // const dateMondayRef = useRef(null);
 
   return (
     <div className="mb-20">
