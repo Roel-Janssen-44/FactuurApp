@@ -40,10 +40,7 @@ export default function WeeklyViewRow({ task }: { task: Goal }) {
   const sundayRef = useRef(null);
 
   return (
-    <div
-      className="border-b-[1px] border-gray-200 odd:bg-gray-100"
-      key={task.id}
-    >
+    <div className="border-b-[1px] border-gray-200 odd:bg-gray-100">
       <div className="flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-200">
         <div className="inline-block w-[255px] px-4 py-3 pb-2 font-medium sm:pl-6">
           {task.title}

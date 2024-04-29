@@ -139,7 +139,7 @@ export default async function WeeklyView() {
         </div>
         <div className="relative mb-2 table w-full max-w-full">
           {goals.map((goal: Goal) => (
-            <WeeklyViewRow task={goal} />
+            <WeeklyViewRow key={`weekly_task_${goal.id}`} task={goal} />
           ))}
         </div>
       </div>
