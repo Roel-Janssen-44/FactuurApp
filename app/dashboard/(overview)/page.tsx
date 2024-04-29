@@ -22,56 +22,62 @@ import {
   AccordionTrigger,
 } from '@/app/components/chadcn/accordion';
 import WeeklyView from '@/app/components/dashboard/weeklyView';
+import DashboardMessage from '@components/dashboardMessage';
+import { auth } from 'auth';
+import { SessionProvider } from 'next-auth/react';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
 };
 
 export default async function Page() {
+  const session = await auth();
+
   return (
     <main>
-      <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        Dashboard
-      </h1>
-      <Accordion
-        type="multiple"
-        defaultValue={['My tasks', 'My goals']}
-        className="w-full"
-      >
-        <Suspense fallback={'Loading weekly view'}>
-          <WeeklyView />
-        </Suspense>
-        <div className="grid gap-6 sm:grid-cols-2">
-          <Suspense fallback={'Loading tasks of today'}>
-            <TasksToday />
-          </Suspense>
-          <Suspense fallback={'Loading tasks for tomorrow'}>
-            <TasksTomorrow />
-          </Suspense>
-        </div>
+      <SessionProvider session={session}>
+        <DashboardMessage />
 
-        <AccordionItem value={'My tasks'}>
-          <AccordionTrigger>
-            <h2 className="mb-4 text-xl">My tasks</h2>
-          </AccordionTrigger>
-          <AccordionContent>
-            <Suspense fallback={'Loading tasks'}>
-              <Tables showCreateNewTable={false} />
+        <Accordion
+          type="multiple"
+          defaultValue={['My tasks', 'My goals']}
+          className="w-full"
+        >
+          <Suspense fallback={'Loading weekly view'}>
+            <WeeklyView />
+          </Suspense>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <Suspense fallback={'Loading tasks of today'}>
+              <TasksToday />
             </Suspense>
-          </AccordionContent>
-        </AccordionItem>
+            <Suspense fallback={'Loading tasks for tomorrow'}>
+              <TasksTomorrow />
+            </Suspense>
+          </div>
 
-        <AccordionItem value={'My goals'}>
-          <AccordionTrigger>
-            <h2 className="mb-4 text-xl">My goals</h2>
-          </AccordionTrigger>
-          <AccordionContent>
-            <Suspense fallback={'Loading goald'}>
-              <Goals showCreateNewTable={false} />
-            </Suspense>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+          <AccordionItem value={'My tasks'}>
+            <AccordionTrigger>
+              <h2 className="mb-4 text-xl">My tasks</h2>
+            </AccordionTrigger>
+            <AccordionContent>
+              <Suspense fallback={'Loading tasks'}>
+                <Tables showCreateNewTable={false} />
+              </Suspense>
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value={'My goals'}>
+            <AccordionTrigger>
+              <h2 className="mb-4 text-xl">My goals</h2>
+            </AccordionTrigger>
+            <AccordionContent>
+              <Suspense fallback={'Loading goald'}>
+                <Goals showCreateNewTable={false} />
+              </Suspense>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </SessionProvider>
     </main>
   );
 }
