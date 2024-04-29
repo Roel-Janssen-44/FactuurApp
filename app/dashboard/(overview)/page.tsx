@@ -41,7 +41,7 @@ export default async function Page() {
         <Suspense fallback={'Loading weekly view'}>
           <WeeklyView />
         </Suspense>
-        {/* <div className="grid gap-6 sm:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-2">
           <Suspense fallback={'Loading tasks of today'}>
             <TasksToday />
           </Suspense>
@@ -70,7 +70,7 @@ export default async function Page() {
               <Goals showCreateNewTable={false} />
             </Suspense>
           </AccordionContent>
-        </AccordionItem> */}
+        </AccordionItem>
       </Accordion>
     </main>
   );

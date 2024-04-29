@@ -9,6 +9,7 @@ import { AuthError } from 'next-auth';
 
 import { formatDateToLocal } from '../../app/lib/utils';
 import { format, startOfWeek, addDays } from 'date-fns';
+import { setEngine } from 'crypto';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -425,115 +426,55 @@ export async function updateWeeklyTask(
   prevState: WeeklyTaskState,
   formData: FormData,
 ) {
-  console.log('updateWeeklyTask');
-  console.log('formData', formData);
-  console.log('taskId', taskId);
+  // console.log('updateWeeklyTask');
+  // console.log('formData', formData);
+  // console.log('taskId', taskId);
 
-  const monday = formData.get('monday');
-  const tuesday = formData.get('tuesday');
-  const wednesday = formData.get('wednesday');
-  const thursday = formData.get('thursday');
-  const friday = formData.get('friday');
-  const saturday = formData.get('saturday');
-  const sunday = formData.get('sunday');
+  const day = formData.get('day');
+  const completed = formData.get('completed');
+  const completedId = formData.get('id');
 
   const currentDate = new Date();
   const weekStart = startOfWeek(currentDate, { weekStartsOn: 1 });
-  const mondayDate = weekStart.toDateString();
-  const tuesdayDate = new Date(
-    format(addDays(weekStart, 1), 'yyyy-MM-dd'),
-  ).toDateString();
-  const wednesdayDate = new Date(
-    format(addDays(weekStart, 2), 'yyyy-MM-dd'),
-  ).toDateString();
-  const thursdayDate = new Date(
-    format(addDays(weekStart, 3), 'yyyy-MM-dd'),
-  ).toDateString();
-  const fridayDate = new Date(
-    format(addDays(weekStart, 4), 'yyyy-MM-dd'),
-  ).toDateString();
-  const saturdayDate = new Date(
-    format(addDays(weekStart, 5), 'yyyy-MM-dd'),
-  ).toDateString();
-  const sundayDate = new Date(
-    format(addDays(weekStart, 6), 'yyyy-MM-dd'),
-  ).toDateString();
 
-  console.log('sundayDate');
-  console.log(sundayDate);
+  const mondayDate = format(addDays(weekStart, 0), 'yyyy-MM-dd');
+  const tuesdayDate = format(addDays(weekStart, 1), 'yyyy-MM-dd');
+  const wednesdayDate = format(addDays(weekStart, 2), 'yyyy-MM-dd');
+  const thursdayDate = format(addDays(weekStart, 3), 'yyyy-MM-dd');
+  const fridayDate = format(addDays(weekStart, 4), 'yyyy-MM-dd');
+  const saturdayDate = format(addDays(weekStart, 5), 'yyyy-MM-dd');
+  const sundayDate = format(addDays(weekStart, 6), 'yyyy-MM-dd');
 
-  // manageTask('monday', monday, taskId, mondayDate);
-  // manageTask('tuesday', tuesday, taskId, tuesdayDate);
-  // manageTask('wednesday', wednesday, taskId, wednesdayDate);
-  // manageTask('thursday', thursday, taskId, thursdayDate);
-  // manageTask('friday', friday, taskId, fridayDate);
-  // manageTask('saturday', saturday, taskId, saturdayDate);
-  // manageTask('sunday', sunday, taskId, sundayDate);
-
-  if (monday == 'on') {
-    console.log('creating monday');
-    try {
-      sql`
-      INSERT INTO task_completions (task_id, completion_date )
-      VALUES (${taskId}, ${mondayDate})
-      `;
-    } catch (error) {
-      console.log('error');
-      console.log(error);
-      return {
-        message: 'Database Error: Failed to Update Task.',
-      };
-    }
+  let selectedDay: string;
+  let isCompleted: boolean;
+  if (completed == 'on') {
+    isCompleted = true;
   } else {
-    console.log('deleting monday');
-    try {
-      sql`
-      DELETE FROM task_completions
-      WHERE task_id=${taskId} AND completion_date=${mondayDate}
-    `;
-    } catch (error) {
-      console.log('error');
-      console.log(error);
-      return {
-        message: 'Database Error: Failed to Update Task.',
-      };
-    }
+    isCompleted = false;
   }
-  if (tuesday == 'on') {
-    console.log('creating tuesday');
-    try {
-      sql`
-      INSERT INTO task_completions (task_id, completion_date )
-      VALUES (${taskId}, ${tuesdayDate})
-      `;
-    } catch (error) {
-      console.log('error');
-      console.log(error);
-      return {
-        message: 'Database Error: Failed to Update Task.',
-      };
-    }
+  if (day == 'monday') {
+    selectedDay = mondayDate;
+  } else if (day == 'tuesday') {
+    selectedDay = tuesdayDate;
+  } else if (day == 'wednesday') {
+    selectedDay = wednesdayDate;
+  } else if (day == 'thursday') {
+    selectedDay = thursdayDate;
+  } else if (day == 'friday') {
+    selectedDay = fridayDate;
+  } else if (day == 'saturday') {
+    selectedDay = saturdayDate;
+  } else if (day == 'sunday') {
+    selectedDay = sundayDate;
   } else {
-    console.log('deleting tuesday');
-    try {
-      sql`
-      DELETE FROM task_completions
-      WHERE task_id=${taskId} AND completion_date=${tuesdayDate}
-    `;
-    } catch (error) {
-      console.log('error');
-      console.log(error);
-      return {
-        message: 'Database Error: Failed to Update Task.',
-      };
-    }
+    throw new Error('Invalid day');
   }
-  if (wednesday == 'on') {
-    console.log('creating wednesday');
+
+  if (isCompleted) {
     try {
       sql`
       INSERT INTO task_completions (task_id, completion_date )
-      VALUES (${taskId}, ${wednesdayDate})
+      VALUES (${taskId}, ${selectedDay})
       `;
     } catch (error) {
       console.log('error');
@@ -543,12 +484,13 @@ export async function updateWeeklyTask(
       };
     }
   } else {
-    console.log('deleting wednesday');
+    if (completedId == null) return;
+    completedId.toString();
     try {
       sql`
-      DELETE FROM task_completions
-      WHERE task_id=${taskId} AND completion_date=${wednesdayDate}
-    `;
+        DELETE FROM task_completions
+        WHERE id=${String(completedId)}
+      `;
     } catch (error) {
       console.log('error');
       console.log(error);
@@ -558,125 +500,6 @@ export async function updateWeeklyTask(
     }
   }
 
-  if (thursday == 'on') {
-    console.log('creating thursday');
-    try {
-      sql`
-      INSERT INTO task_completions (task_id, completion_date )
-      VALUES (${taskId}, ${thursdayDate})
-      `;
-    } catch (error) {
-      console.log('error');
-      console.log(error);
-      return {
-        message: 'Database Error: Failed to Update Task.',
-      };
-    }
-  } else {
-    console.log('deleting thursday');
-    try {
-      sql`
-      DELETE FROM task_completions
-      WHERE task_id=${taskId} AND completion_date=${thursdayDate}
-    `;
-    } catch (error) {
-      console.log('error');
-      console.log(error);
-      return {
-        message: 'Database Error: Failed to Update Task.',
-      };
-    }
-  }
-  if (friday == 'on') {
-    console.log('creating friday');
-    try {
-      sql`
-      INSERT INTO task_completions (task_id, completion_date )
-      VALUES (${taskId}, ${fridayDate})
-      `;
-    } catch (error) {
-      console.log('error');
-      console.log(error);
-      return {
-        message: 'Database Error: Failed to Update Task.',
-      };
-    }
-  } else {
-    console.log('deleting friday');
-    try {
-      sql`
-      DELETE FROM task_completions
-      WHERE task_id=${taskId} AND completion_date=${fridayDate}
-    `;
-    } catch (error) {
-      console.log('error');
-      console.log(error);
-      return {
-        message: 'Database Error: Failed to Update Task.',
-      };
-    }
-  }
-  if (saturday == 'on') {
-    console.log('creating saturday');
-    try {
-      sql`
-      INSERT INTO task_completions (task_id, completion_date )
-      VALUES (${taskId}, ${saturdayDate})
-      `;
-    } catch (error) {
-      console.log('error');
-      console.log(error);
-      return {
-        message: 'Database Error: Failed to Update Task.',
-      };
-    }
-  } else {
-    console.log('deleting saturday');
-    try {
-      sql`
-      DELETE FROM task_completions
-      WHERE task_id=${taskId} AND completion_date=${saturdayDate}
-    `;
-    } catch (error) {
-      console.log('error');
-      console.log(error);
-      return {
-        message: 'Database Error: Failed to Update Task.',
-      };
-    }
-  }
-  if (sunday == 'on') {
-    console.log('creating sunday');
-    try {
-      sql`
-      INSERT INTO task_completions (task_id, completion_date )
-      VALUES (${taskId}, ${sundayDate})
-      `;
-    } catch (error) {
-      console.log('error');
-      console.log(error);
-      return {
-        message: 'Database Error: Failed to Update Task.',
-      };
-    }
-  } else {
-    console.log('deleting sunday');
-    try {
-      sql`
-      DELETE FROM task_completions
-      WHERE task_id=${taskId} AND completion_date=${sundayDate}
-    `;
-    } catch (error) {
-      console.log('error');
-      console.log(error);
-      return {
-        message: 'Database Error: Failed to Update Task.',
-      };
-    }
-  }
-
-  // revalidatePath('/dashboard');
-  // revalidatePath('/dashboard/tasks');
-  // revalidatePath('/dashboard/goals');
+  revalidatePath('/dashboard');
   // // redirect('/dashboard/tasks');
 }

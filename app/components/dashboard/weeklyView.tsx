@@ -1,8 +1,8 @@
 'use server';
 
-import { fetchGoals } from '@/app/lib/data';
+import { fetchGoals, fetchCompletedTaskDatesThisWeek } from '@/app/lib/data';
 import { Goal } from '@/app/lib/definitions';
-import { format, startOfWeek, addDays } from 'date-fns';
+import { format, startOfWeek, addDays, getDay } from 'date-fns';
 import { useRef } from 'react';
 import { Checkbox } from '@components/chadcn/checkbox';
 
@@ -10,7 +10,7 @@ import WeeklyViewRow from './weeklyViewRow';
 
 export default async function WeeklyView() {
   const fetchedGoals = await fetchGoals();
-  let tasks: Goal[] = [];
+  let goals: Goal[] = [];
 
   fetchedGoals.forEach((goal) => {
     const changedGoal: Goal = {
@@ -19,13 +19,26 @@ export default async function WeeklyView() {
       table_id: goal.table_id,
       daysPerWeek: goal.daysperweek?.toString() || '0',
       completed: goal.completed,
+      completedDates: [],
     };
-    tasks.push(changedGoal);
+    goals.push(changedGoal);
   });
 
   const currentDate = new Date();
   const currentDayOfTheWeek = currentDate.getDay();
   const weekStart = startOfWeek(currentDate, { weekStartsOn: 1 });
+
+  const completedTaskDates = await fetchCompletedTaskDatesThisWeek();
+
+  completedTaskDates.forEach((taskDate) => {
+    const currentGoal = goals.find((goal) => goal.id == taskDate.task_id);
+
+    currentGoal.completedDates.push({
+      day: taskDate.completion_date.getDay(),
+      date: new Date(taskDate.completion_date),
+      id: taskDate.id,
+    });
+  });
 
   return (
     <div className="mb-20">
@@ -125,8 +138,8 @@ export default async function WeeklyView() {
           </div>
         </div>
         <div className="relative mb-2 table w-full max-w-full">
-          {tasks.map((task: Goal) => (
-            <WeeklyViewRow task={task} />
+          {goals.map((goal: Goal) => (
+            <WeeklyViewRow task={goal} />
           ))}
         </div>
       </div>

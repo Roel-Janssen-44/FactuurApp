@@ -24,11 +24,6 @@ export default function WeeklyViewRow({ task }: { task: Goal }) {
 
   const formRef = useRef(null);
 
-  const handleBlur = () => {
-    if (formRef.current) {
-      formRef.current.requestSubmit();
-    }
-  };
   const updateWeeklyTaskWithId = updateWeeklyTask.bind(null, task.id);
   const [state, dispatch] = useFormState(updateWeeklyTaskWithId, initialState);
 
@@ -45,204 +40,195 @@ export default function WeeklyViewRow({ task }: { task: Goal }) {
   const sundayRef = useRef(null);
 
   return (
-    <form
-      key={task.id}
-      ref={formRef}
-      action={dispatch}
+    <div
       className="border-b-[1px] border-gray-200 odd:bg-gray-100"
+      key={task.id}
     >
       <div className="flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-200">
         <div className="inline-block w-[255px] px-4 py-3 pb-2 font-medium sm:pl-6">
           {task.title}
-          <span className="text-xs"> (2 of {task.daysPerWeek})</span>
-          <br />
-          {task.id}
+          <span className="text-xs">
+            {' '}
+            ({task.completedDates.length} of {task.daysPerWeek})
+          </span>
         </div>
         <div className="inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
-          {/* <input ref={mondayRef} type="monday" name="monday" id="monday" /> */}
-          <Checkbox
-            name="monday"
-            onCheckedChange={(e) => {
-              handleBlur();
-            }}
-            // onCheckedChange={(e) => {
-            //   console.log('check change');
-            //   console.log(e);
-            //   if (mondayRef.current) {
-            //     if (e) {
-            //       mondayRef.current.value = format(
-            //         new Date(weekStart),
-            //         'yyyy-MM-dd',
-            //       );
-            //     } else {
-            //       mondayRef.current.value = '';
-            //     }
-            //   }
-            //   handleBlur();
-            // }}
-          />
+          <form ref={mondayRef} action={dispatch}>
+            <input type="hidden" name="day" value={'monday'} />
+            <input
+              type="hidden"
+              name="id"
+              value={
+                task.completedDates.find((dateObj) => dateObj.day == '1')?.id
+              }
+            />
+            <Checkbox
+              name="completed"
+              defaultChecked={task.completedDates.some(
+                (dateObj) => dateObj.day == '1',
+              )}
+              onCheckedChange={(e) => {
+                console.log('log monday change');
+                console.log(e);
+                if (mondayRef.current) {
+                  mondayRef.current.requestSubmit();
+                }
+              }}
+            />
+          </form>
         </div>
         <div className="inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
-          {/* <input ref={tuesdayRef} type="tuesday" name="tuesday" id="tuesday" /> */}
-          <Checkbox
-            name="tuesday"
-            onCheckedChange={(e) => {
-              handleBlur();
-            }}
-            // onCheckedChange={(e) => {
-            //   console.log('check change');
-            //   console.log(e);
-            //   if (tuesdayRef.current) {
-            //     if (e) {
-            //       tuesdayRef.current.value = format(
-            //         addDays(new Date(weekStart), 1),
-            //         'yyyy-MM-dd',
-            //       );
-            //     } else {
-            //       tuesdayRef.current.value = '';
-            //     }
-            //   }
-            //   handleBlur();
-            // }}
-          />
+          <form ref={tuesdayRef} action={dispatch}>
+            <input type="hidden" name="day" value={'tuesday'} />
+            <input
+              type="hidden"
+              name="id"
+              value={
+                task.completedDates.find((dateObj) => dateObj.day == '2')?.id
+              }
+            />
+            <Checkbox
+              name="completed"
+              defaultChecked={task.completedDates.some(
+                (dateObj) => dateObj.day == '2',
+              )}
+              onCheckedChange={(e) => {
+                console.log('log tuesday change');
+                console.log(e);
+                if (tuesdayRef.current) {
+                  tuesdayRef.current.requestSubmit();
+                }
+              }}
+            />
+          </form>
         </div>
         <div className="inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
-          {/* <input
-            ref={wednesdayRef}
-            type="wednesday"
-            name="wednesday"
-            id="wednesday"
-          /> */}
-          <Checkbox
-            name="wednesday"
-            onCheckedChange={(e) => {
-              handleBlur();
-            }}
-            // onCheckedChange={(e) => {
-            //   console.log('check change');
-            //   console.log(e);
-            //   if (wednesdayRef.current) {
-            //     if (e) {
-            //       wednesdayRef.current.value = format(
-            //         addDays(new Date(weekStart), 2),
-            //         'yyyy-MM-dd',
-            //       );
-            //     } else {
-            //       wednesdayRef.current.value = '';
-            //     }
-            //   }
-            //   handleBlur();
-            // }}
-          />
+          <form ref={wednesdayRef} action={dispatch}>
+            <input type="hidden" name="day" value={'wednesday'} />
+            <input
+              type="hidden"
+              name="id"
+              value={
+                task.completedDates.find((dateObj) => dateObj.day == '3')?.id
+              }
+            />
+            <Checkbox
+              name="completed"
+              defaultChecked={task.completedDates.some(
+                (dateObj) => dateObj.day == '3',
+              )}
+              onCheckedChange={(e) => {
+                console.log('log wednesday change');
+                console.log(e);
+                if (wednesdayRef.current) {
+                  wednesdayRef.current.requestSubmit();
+                }
+              }}
+            />
+          </form>
         </div>
         <div className="inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
-          {/* <input
-            ref={thursdayRef}
-            type="thursday"
-            name="thursday"
-            id="thursday"
-          /> */}
-          <Checkbox
-            name="thursday"
-            onCheckedChange={(e) => {
-              handleBlur();
-            }}
-            // onCheckedChange={(e) => {
-            //   console.log('check change');
-            //   console.log(e);
-            //   if (thursdayRef.current) {
-            //     if (e) {
-            //       thursdayRef.current.value = format(
-            //         addDays(new Date(weekStart), 3),
-            //         'yyyy-MM-dd',
-            //       );
-            //     } else {
-            //       thursdayRef.current.value = '';
-            //     }
-            //   }
-            //   handleBlur();
-            // }}
-          />
+          <form ref={thursdayRef} action={dispatch}>
+            <input type="hidden" name="day" value={'thursday'} />
+            <input
+              type="hidden"
+              name="id"
+              value={
+                task.completedDates.find((dateObj) => dateObj.day == '4')?.id
+              }
+            />
+            <Checkbox
+              name="completed"
+              defaultChecked={task.completedDates.some(
+                (dateObj) => dateObj.day == '4',
+              )}
+              onCheckedChange={(e) => {
+                console.log('log thursday change');
+                console.log(e);
+                if (thursdayRef.current) {
+                  thursdayRef.current.requestSubmit();
+                }
+              }}
+            />
+          </form>
         </div>
 
         <div className="inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
-          {/* <input ref={fridayRef} type="friday" name="friday" id="friday" /> */}
-          <Checkbox
-            name="friday"
-            onCheckedChange={(e) => {
-              handleBlur();
-            }}
-            // onCheckedChange={(e) => {
-            //   console.log('check change');
-            //   console.log(e);
-            //   if (fridayRef.current) {
-            //     if (e) {
-            //       fridayRef.current.value = format(
-            //         addDays(new Date(weekStart), 4),
-            //         'yyyy-MM-dd',
-            //       );
-            //     } else {
-            //       fridayRef.current.value = '';
-            //     }
-            //   }
-            //   handleBlur();
-            // }}
-          />
+          <form ref={fridayRef} action={dispatch}>
+            <input type="hidden" name="day" value={'friday'} />
+            <input
+              type="hidden"
+              name="id"
+              value={
+                task.completedDates.find((dateObj) => dateObj.day == '5')?.id
+              }
+            />
+            <Checkbox
+              name="completed"
+              defaultChecked={task.completedDates.some(
+                (dateObj) => dateObj.day == '5',
+              )}
+              onCheckedChange={(e) => {
+                console.log('log friday change');
+                console.log(e);
+                if (fridayRef.current) {
+                  fridayRef.current.requestSubmit();
+                }
+              }}
+            />
+          </form>
         </div>
         <div className="inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
-          {/* <input
-            ref={saturdayRef}
-            type="saturday"
-            name="saturday"
-            id="saturday"
-          /> */}
-          <Checkbox
-            name="saturday"
-            onCheckedChange={(e) => {
-              handleBlur();
-            }}
-            // onCheckedChange={(e) => {
-            //   console.log('check change');
-            //   console.log(e);
-            //   if (saturdayRef.current) {
-            //     if (e) {
-            //       saturdayRef.current.value = format(
-            //         addDays(new Date(weekStart), 5),
-            //         'yyyy-MM-dd',
-            //       );
-            //     } else {
-            //       saturdayRef.current.value = '';
-            //     }
-            //   }
-            //   handleBlur();
-            // }}
-          />
+          <form ref={saturdayRef} action={dispatch}>
+            <input type="hidden" name="day" value={'saturday'} />
+            <input
+              type="hidden"
+              name="id"
+              value={
+                task.completedDates.find((dateObj) => dateObj.day == '6')?.id
+              }
+            />
+            <Checkbox
+              name="completed"
+              defaultChecked={task.completedDates.some(
+                (dateObj) => dateObj.day == '6',
+              )}
+              onCheckedChange={(e) => {
+                console.log('log saturday change');
+                console.log(e);
+                if (saturdayRef.current) {
+                  saturdayRef.current.requestSubmit();
+                }
+              }}
+            />
+          </form>
         </div>
         <div className="inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
-          {/* <input ref={sundayRef} type="sunday" name="sunday" id="sunday" /> */}
-          <Checkbox
-            name="sunday"
-            onCheckedChange={(e) => {
-              handleBlur();
-            }}
-            // onCheckedChange={(e) => {
-            //   console.log('check change');
-            //   console.log(e);
-            //   if (sundayRef.current) {
-            //     if (e) {
-            //       sundayRef.current.value = format(
-            //         addDays(new Date(weekStart), 6),
-            //         'yyyy-MM-dd',
-            //       );
-            //     } else {
-            //       sundayRef.current.value = '';
-            //     }
-            //   }
-            //   handleBlur();
-            // }}
-          />
+          <form ref={sundayRef} action={dispatch}>
+            <input type="hidden" name="day" value={'sunday'} />
+            <input
+              type="hidden"
+              name="id"
+              value={
+                task.completedDates.find((dateObj) => dateObj.day == '7')?.id
+              }
+            />
+            <Checkbox
+              name="completed"
+              defaultChecked={task.completedDates.some(
+                (dateObj) => dateObj.day == '7',
+              )}
+              onCheckedChange={(e) => {
+                console.log('log sunday change');
+                console.log(e);
+                if (sundayRef.current) {
+                  sundayRef.current.requestSubmit();
+                }
+              }}
+            />
+          </form>
         </div>
       </div>
-    </form>
+    </div>
   );
 }

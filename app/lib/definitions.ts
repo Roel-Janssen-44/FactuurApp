@@ -12,6 +12,7 @@ export type Task = {
 export type Goal = Task & {
   repeat?: boolean;
   daysPerWeek?: string;
+  completedDates?: { day: string; date: Date; id: string }[];
 };
 
 export type Table = {

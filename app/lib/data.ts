@@ -317,7 +317,19 @@ export async function fetchGoals() {
       WHERE "type" = 'goal'
       ORDER BY "order" ASC
     `;
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch tasks.');
+  }
+}
 
+export async function fetchCompletedTaskDatesThisWeek() {
+  try {
+    const data = await sql`
+      SELECT * FROM task_completions 
+      WHERE DATE_PART('week', completion_date) = DATE_PART('week', CURRENT_DATE)
+    `;
     return data.rows;
   } catch (error) {
     console.error('Database Error:', error);
