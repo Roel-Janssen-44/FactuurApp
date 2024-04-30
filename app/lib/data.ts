@@ -1,4 +1,5 @@
 import { sql } from '@vercel/postgres';
+import { auth } from 'auth';
 import {
   CustomerField,
   CustomersTableType,
@@ -243,8 +244,15 @@ export async function getUser(email: string) {
 
 // Fetch tables
 export async function fetchTables() {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) return;
   try {
-    const data = await sql`SELECT * FROM tables WHERE type = 'task'`;
+    const data = await sql`
+      SELECT * FROM tables 
+      WHERE type = 'task' 
+      AND user_id = ${userId} 
+    `;
 
     return data.rows;
   } catch (error) {
@@ -254,8 +262,16 @@ export async function fetchTables() {
 }
 // Fetch goal tables
 export async function fetchGoalTables() {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) return;
+
   try {
-    const data = await sql`SELECT * FROM tables WHERE type = 'goal'`;
+    const data = await sql`
+      SELECT * FROM tables 
+      WHERE type = 'goal'
+      AND user_id = ${userId} 
+    `;
 
     return data.rows;
   } catch (error) {
@@ -266,10 +282,15 @@ export async function fetchGoalTables() {
 
 // Fetch tasks
 export async function fetchTasks() {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) return;
+
   try {
     const data = await sql`
       SELECT * FROM tasks
       WHERE "type" = 'task'
+      AND user_id = ${userId} 
       ORDER BY "order" ASC
     `;
 
@@ -281,10 +302,15 @@ export async function fetchTasks() {
 }
 // Fetch tasks of today
 export async function fetchTasksToday() {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) return;
+
   try {
     const data = await sql`
       SELECT * FROM tasks
       WHERE date = CURRENT_DATE
+      AND user_id = ${userId} 
       ORDER BY "order" ASC
     `;
 
@@ -296,10 +322,15 @@ export async function fetchTasksToday() {
 }
 // Fetch tasks for tomorrow
 export async function fetchTasksTomorrow() {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) return;
+
   try {
     const data = await sql`
       SELECT * FROM tasks
       WHERE date = CURRENT_DATE + INTERVAL '1 day'
+      AND user_id = ${userId} 
       ORDER BY "order" ASC
     `;
 
@@ -311,10 +342,15 @@ export async function fetchTasksTomorrow() {
 }
 // Fetch goals
 export async function fetchGoals() {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) return;
+
   try {
     const data = await sql`
       SELECT * FROM tasks
       WHERE "type" = 'goal'
+      AND user_id = ${userId} 
       ORDER BY "order" ASC
     `;
     return data.rows;
@@ -325,11 +361,16 @@ export async function fetchGoals() {
 }
 
 export async function fetchCompletedTaskDatesThisWeek() {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) return;
+
   try {
     const data = await sql`
       SELECT * FROM task_completions 
       WHERE DATE_PART('week', completion_date) = DATE_PART('week', CURRENT_DATE)
-    `;
+      `;
+    // To do - use inner join on tasks and filter by user_id
     return data.rows;
   } catch (error) {
     console.error('Database Error:', error);

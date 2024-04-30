@@ -1,5 +1,6 @@
 'use server';
 
+import { auth } from 'auth';
 import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
@@ -7,9 +8,7 @@ import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 
-import { formatDateToLocal } from '../../app/lib/utils';
 import { format, startOfWeek, addDays } from 'date-fns';
-import { setEngine } from 'crypto';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -161,6 +160,10 @@ export async function createTable(
   prevState: TableState,
   formData: FormData,
 ) {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) return;
+
   const validatedFields = CreateTable.safeParse({
     title: formData.get('title'),
   });
@@ -173,10 +176,13 @@ export async function createTable(
   }
   const { title } = validatedFields.data;
 
+  console.log('creating table');
+  console.log(title);
+  console.log(userId);
   try {
     await sql`
-      INSERT INTO tables (title, type)
-      VALUES (${title}, ${tableType})
+      INSERT INTO tables (title, type, user_id)
+      VALUES (${title}, ${tableType}, ${userId})
     `;
   } catch (error) {
     return {
@@ -208,6 +214,10 @@ export async function createTask(
   prevState: TaskState,
   formData: FormData,
 ) {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) return;
+
   const title = formData.get('title');
 
   if (typeof title !== 'string' || title.trim() === '') {
@@ -230,8 +240,8 @@ export async function createTask(
 
   try {
     await sql`
-      INSERT INTO tasks (title, table_id, type)
-      VALUES (${title}, ${table_id}, ${type})
+      INSERT INTO tasks (title, table_id, type, user_id)
+      VALUES (${title}, ${table_id}, ${type}, ${userId})
     `;
   } catch (error) {
     return {

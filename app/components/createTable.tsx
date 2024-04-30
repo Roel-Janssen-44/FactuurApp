@@ -3,8 +3,13 @@
 import { Button } from '@/app/components/button';
 import { createTable } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
+// import { useSession } from 'next-auth/react';
 
 export default function CreateTable({ type }: { type: 'goal' | 'task' }) {
+  // const { data: session } = useSession();
+  // console.log('session');
+  // console.log(session);
+  // console.log(session.user.id);
   const initialState = { message: null, errors: {} };
 
   const createTableWithType = createTable.bind(null, type);

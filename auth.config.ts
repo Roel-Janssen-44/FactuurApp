@@ -43,11 +43,28 @@
 // export default { providers: [GitHub] } satisfies NextAuthConfig;
 
 import GitHub from 'next-auth/providers/github';
+import Google from 'next-auth/providers/google';
+
 import type { NextAuthConfig } from 'next-auth';
 
 const config: NextAuthConfig = {
-  providers: [GitHub],
+  providers: [GitHub, Google],
   callbacks: {
+    async jwt({ token, user }: any) {
+      if (user?.id) token.id = user.id;
+      if (user?.isAdmin) token.isAdmin = user.isAdmin;
+      return token;
+    },
+    async session({ session, token, user }: any) {
+      // user id is stored in .id when using credentials provider
+      if (token?.id) session.user.id = token.id;
+
+      // user id is stored in .id when using google provider
+      if (token?.sub) session.user.id = token.sub;
+
+      if (token?.isAdmin) session.user.isAdmin = token.isAdmin;
+      return session;
+    },
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
