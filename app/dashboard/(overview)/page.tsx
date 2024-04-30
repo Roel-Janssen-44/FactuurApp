@@ -1,14 +1,6 @@
-import { Card } from '@/app/components/dashboard/cards';
-import RevenueChart from '@/app/components/dashboard/revenue-chart';
-import LatestInvoices from '@/app/components/dashboard/latest-invoices';
-import { lusitana } from '@/app/components/fonts';
+// 'use server';
+
 import { Suspense } from 'react';
-import {
-  RevenueChartSkeleton,
-  LatestInvoicesSkeleton,
-  CardsSkeleton,
-} from '@/app/components/skeletons';
-import CardWrapper from '@/app/components/dashboard/cards';
 import { Metadata } from 'next';
 import TasksToday from '@/app/components/dashboard/today';
 import TasksTomorrow from '@/app/components/dashboard/tomorrow';

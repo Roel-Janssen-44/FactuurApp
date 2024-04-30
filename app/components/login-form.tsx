@@ -22,7 +22,7 @@ export default function LoginForm() {
         <h1 className={`${lusitana.className} mb-3 text-2xl`}>
           Please log in to continue.
         </h1>
-        <form
+        {/* <form
           action={async () => {
             await signIn('github');
           }}
@@ -36,7 +36,7 @@ export default function LoginForm() {
             />
             Signin with Github
           </Button>
-        </form>
+        </form> */}
       </div>
     </div>
   );
