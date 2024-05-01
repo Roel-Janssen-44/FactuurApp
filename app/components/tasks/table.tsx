@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef } from 'react';
 import { Task, Table } from '@/app/lib/definitions';
 import { Input } from '@/app/components/chadcn/input';
 
@@ -7,13 +8,24 @@ import CreateTask from '@/app/components/createRow';
 import TableRow from '@/app/components/tasks/row';
 import { updateTableName } from '@/app/lib/actions';
 
+import { Button } from '@/app/components/chadcn/button';
+import { TrashIcon } from '@heroicons/react/24/outline';
+import { deleteTable } from '@/app/lib/actions';
+import { useFormState } from 'react-dom';
+
 export default function TaskTable({
   table,
   tasks,
+  showDelete = true,
 }: {
   table: Table;
   tasks: Task[];
+  showDelete: boolean;
 }) {
+  const initialState = { message: null, errors: {} };
+  const deleteTableWithId = deleteTable.bind(null, table.id);
+  const [state, dispatch] = useFormState(deleteTableWithId, initialState);
+
   if (!tasks) return null;
 
   const handleTitleChange = (newValue: string) => {
@@ -23,7 +35,7 @@ export default function TaskTable({
 
   return (
     <div className="relative my-10 rounded-lg bg-gray-100 p-3 first:mt-0">
-      <h2 className="my-2 text-lg">
+      <h2 className="my-2 flex flex-row justify-between text-lg">
         <Input
           className="w-[300px] border-none bg-transparent text-xl"
           defaultValue={table.title}
@@ -31,6 +43,19 @@ export default function TaskTable({
             handleTitleChange(e.target.value);
           }}
         />
+        {showDelete && (
+          <form
+            key={'Delete_table_form' + table.id}
+            action={dispatch}
+            className={`relative flex flex-row border-b-[1px] border-gray-200 odd:bg-gray-100`}
+          >
+            <Button type="submit" size="icon" variant="outline">
+              <div className="flex flex-row justify-center">
+                <TrashIcon className="h-5 w-5" />
+              </div>
+            </Button>
+          </form>
+        )}
       </h2>
       <div className="w-full overflow-x-auto rounded-lg bg-gray-50 text-gray-900 scrollbar scrollbar-track-slate-300 scrollbar-thumb-slate-700 scrollbar-track-rounded scrollbar-thumb-rounded scrollbar-h-3">
         <div className="ml-[50px] table text-left text-sm font-normal">

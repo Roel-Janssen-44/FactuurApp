@@ -419,6 +419,23 @@ export async function deleteTask(taskId: string) {
   // redirect('/dashboard/tasks');
 }
 
+export async function deleteTable(tableId: string) {
+  try {
+    await sql`
+      DELETE FROM "tables" WHERE id = ${tableId}
+    `;
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Delete Task.',
+    };
+  }
+
+  revalidatePath('/dashboard');
+  revalidatePath('/dashboard/tasks');
+  revalidatePath('/dashboard/goals');
+  // redirect('/dashboard/tasks');
+}
+
 export type WeeklyTaskState = {
   errors?: {
     monday?: string[];

@@ -5,7 +5,6 @@ import { Input } from '@/app/components/chadcn/input';
 
 import CreateTask from '@/app/components/createRow';
 import TableRow from '@/app/components/goals/row';
-// import TableRow from '@components/tables/goals/row';
 import { updateTableName } from '@/app/lib/actions';
 
 export default function TaskTableRow({
@@ -39,9 +38,6 @@ export default function TaskTableRow({
             <div className="inline-block w-[350px] px-4 py-3 pb-2 font-medium sm:pl-6">
               Title
             </div>
-            {/* <div className="inline-block w-[175px] px-3 py-3 pb-2 font-medium">
-              Repeating task
-            </div> */}
             <div className="inline-block w-[175px] px-3 py-3 pb-2 font-medium">
               Days per week
             </div>

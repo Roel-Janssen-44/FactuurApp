@@ -13,7 +13,11 @@ export default async function TasksTomorrow() {
 
   return (
     <div className="scrollbar-track-sky-300 scrollbar-thumb-sky-700">
-      <TasksTable table={table} tasks={fetchedTasks as Task[]} />
+      <TasksTable
+        table={table}
+        tasks={fetchedTasks as Task[]}
+        showDelete={false}
+      />
     </div>
   );
 }
