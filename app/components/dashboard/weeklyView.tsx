@@ -5,7 +5,7 @@ import { Goal } from '@/app/lib/definitions';
 import { format, startOfWeek, addDays, getDay } from 'date-fns';
 import { useRef } from 'react';
 import { Checkbox } from '@components/chadcn/checkbox';
-
+import { exo } from '@/app/components/fonts';
 import WeeklyViewRow from './weeklyViewRow';
 
 export default async function WeeklyView() {
@@ -42,13 +42,15 @@ export default async function WeeklyView() {
 
   return (
     <div className="mb-20">
-      <h2 className="mb-4 text-xl">Weekly view</h2>
+      <h2 className={`${exo.className} mb-4 text-2xl font-bold`}>
+        Weekly view
+      </h2>
       <div className="w-full overflow-x-auto rounded-lg bg-gray-50 p-2 text-gray-900 scrollbar scrollbar-track-slate-300 scrollbar-thumb-slate-700 scrollbar-track-rounded scrollbar-thumb-rounded scrollbar-h-3">
         <div className="table text-left text-sm font-normal">
           <div className="flex w-full flex-row flex-nowrap items-center">
             <div className="inline-block w-[255px] px-4 py-3 pb-2 font-medium sm:pl-6">
-              Weekstart {format(weekStart, 'dd-MM-yyyy')} <br />
-              Task {format(currentDate, 'dd-MM-yyyy')}
+              {/* Weekstart {format(weekStart, 'dd-MM-yyyy')} <br />
+              Task {format(currentDate, 'dd-MM-yyyy')} */}
             </div>
 
             <div
@@ -60,8 +62,6 @@ export default async function WeeklyView() {
               }`}
             >
               Monday
-              <br />
-              {format(weekStart, 'dd-MM-yyyy')}
             </div>
             <div
               className={`inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium ${
@@ -72,8 +72,6 @@ export default async function WeeklyView() {
               }`}
             >
               Tuesday
-              <br />
-              {format(addDays(weekStart, 1), 'dd-MM-yyyy')}
             </div>
             <div
               className={`inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium ${
@@ -84,8 +82,6 @@ export default async function WeeklyView() {
               }`}
             >
               <span className="-ml-1">Wednesday</span>
-              <br />
-              {format(addDays(weekStart, 2), 'dd-MM-yyyy')}
             </div>
             <div
               className={`inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium ${
@@ -96,8 +92,6 @@ export default async function WeeklyView() {
               }`}
             >
               Thursday
-              <br />
-              {format(addDays(weekStart, 3), 'dd-MM-yyyy')}
             </div>
             <div
               className={`inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium ${
@@ -108,8 +102,6 @@ export default async function WeeklyView() {
               }`}
             >
               Friday
-              <br />
-              {format(addDays(weekStart, 4), 'dd-MM-yyyy')}
             </div>
             <div
               className={`inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium ${
@@ -120,8 +112,6 @@ export default async function WeeklyView() {
               }`}
             >
               Saterday
-              <br />
-              {format(addDays(weekStart, 5), 'dd-MM-yyyy')}
             </div>
             <div
               className={`inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium ${
@@ -132,8 +122,6 @@ export default async function WeeklyView() {
               }`}
             >
               Sunday
-              <br />
-              {format(addDays(weekStart, 6), 'dd-MM-yyyy')}
             </div>
           </div>
         </div>

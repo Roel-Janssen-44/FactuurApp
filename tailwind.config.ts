@@ -32,6 +32,12 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      colors: {
+        primary: '#5E0035',
+        secondary: '#66003a',
+        teriary: '#020202',
+        active: '#800048',
+      },
     },
   },
   plugins: [

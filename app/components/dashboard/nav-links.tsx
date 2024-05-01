@@ -10,6 +10,7 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import ThemeSwitcher from '@/app/components/themeSwitcher';
 
 // Map of links to display in the side navigation.
 const links = [
@@ -36,9 +37,10 @@ export default function NavLinks() {
             key={link.name}
             href={link.href}
             className={clsx(
-              'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3',
+              'dark:bg-secondary hover:text-active dark:hover:bg-active flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-100 dark:hover:bg-opacity-50 dark:hover:text-white md:flex-none md:justify-start md:p-2 md:px-3',
               {
-                'bg-sky-100 text-blue-600': pathname === link.href,
+                'dark:bg-active bg-active hover:bg-active text-white hover:text-white dark:hover:bg-opacity-100':
+                  pathname === link.href,
               },
             )}
           >
@@ -47,6 +49,13 @@ export default function NavLinks() {
           </Link>
         );
       })}
+      <div
+        className={clsx(
+          'dark:bg-secondary hover:text-active dark:hover:bg-active md:px-3s flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-100 dark:hover:bg-opacity-50 dark:hover:text-white md:flex-none md:justify-start md:p-2',
+        )}
+      >
+        <ThemeSwitcher />
+      </div>
     </>
   );
 }
