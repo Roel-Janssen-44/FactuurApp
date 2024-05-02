@@ -57,9 +57,9 @@ export default function TaskTable({
       key={task.id}
       ref={formRef}
       action={dispatch}
-      className={`relative flex flex-row border-b-[1px] border-gray-200 odd:bg-gray-100`}
+      className={`dark:odd:bg-primary relative flex flex-row border-t-[1px] border-gray-200 odd:bg-gray-100 dark:border-white dark:border-opacity-10`}
     >
-      <div className="flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-200">
+      <div className="dark:hover:bg-active flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-200">
         {task.completed && (
           <>
             <div className="absolute left-0 top-0 h-full w-full bg-black bg-opacity-20"></div>
@@ -67,7 +67,7 @@ export default function TaskTable({
           </>
         )}
         <div
-          className={`relative flex w-[50px] items-center justify-center border-r-[1px] border-gray-200 px-3 py-1`}
+          className={`relative flex w-[50px] items-center justify-center border-r-[1px] border-gray-200 px-3 py-1 dark:border-white dark:border-opacity-10`}
         >
           <Checkbox
             ref={checkboxRef}
@@ -83,10 +83,10 @@ export default function TaskTable({
             htmlFor={task.id}
           ></label>
         </div>
-        <div className="w-[350px] border-r-[1px] border-gray-200 px-3 py-1">
+        <div className="w-[350px] border-r-[1px] border-gray-200 px-3 py-1 dark:border-white dark:border-opacity-10">
           <Input
             name="title"
-            className="cursor-pointer border-none bg-transparent"
+            className="cursor-pointer border-none bg-transparent dark:bg-transparent"
             defaultValue={task.title}
             onBlur={(e) => {
               if (e.target.value == '') return;
@@ -95,7 +95,7 @@ export default function TaskTable({
             }}
           />
         </div>
-        <div className="w-[175px] border-r-[1px] border-gray-200 px-3">
+        <div className="w-[175px] border-r-[1px] border-gray-200 px-3 dark:border-white dark:border-opacity-10">
           <Select
             defaultValue={task.priority}
             name="priority"
@@ -109,12 +109,12 @@ export default function TaskTable({
             <SelectTrigger
               className={`w-[150px] ${
                 task.priority == 'low'
-                  ? 'bg-red-200'
+                  ? 'bg-red-200 dark:bg-red-200'
                   : task.priority == 'medium'
-                  ? 'bg-red-400'
+                  ? 'bg-red-400 dark:bg-red-400'
                   : task.priority == 'high'
-                  ? 'bg-red-600'
-                  : 'border-none bg-transparent text-transparent'
+                  ? 'bg-red-600 dark:bg-red-600'
+                  : 'border-none bg-transparent text-transparent dark:bg-transparent'
               }`}
             >
               <SelectValue placeholder="" />
@@ -127,7 +127,7 @@ export default function TaskTable({
             </SelectContent>
           </Select>
         </div>
-        <div className="w-[175px] border-r-[1px] border-gray-200 px-3">
+        <div className="w-[175px] border-r-[1px] border-gray-200 px-3 dark:border-white dark:border-opacity-10">
           <input
             aria-hidden
             className="hidden h-20 w-40 bg-green-500"
@@ -142,7 +142,7 @@ export default function TaskTable({
                 name="date"
                 variant={'outline'}
                 className={cn(
-                  'w-full justify-start border-none bg-transparent text-left font-normal hover:bg-transparent',
+                  'w-full justify-start border-none bg-transparent text-left font-normal hover:bg-transparent dark:bg-transparent dark:hover:bg-transparent',
                   !task.date && 'text-muted-foreground',
                 )}
               >
@@ -170,7 +170,7 @@ export default function TaskTable({
           </Popover>
         </div>
 
-        <div className="w-[175px] border-r-[1px] border-gray-200 px-3">
+        <div className="w-[175px] border-r-[1px] border-gray-200 px-3 dark:border-white dark:border-opacity-10">
           <Button
             variant="ghost"
             onClick={null}

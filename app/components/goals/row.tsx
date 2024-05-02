@@ -44,13 +44,14 @@ export default function GoalTableRow({
       key={goal.id}
       ref={formRef}
       action={dispatch}
-      className="border-b-[1px] border-gray-200 odd:bg-gray-100"
+      // className="border-b-[1px] border-gray-200 odd:bg-gray-100"
+      className={`dark:odd:bg-primary relative flex flex-row border-t-[1px] border-gray-200 odd:bg-gray-100 dark:border-white dark:border-opacity-10`}
     >
-      <div className="flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-200">
-        <div className="w-[350px] border-r-[1px] border-gray-200 px-3 py-1">
+      <div className="dark:hover:bg-active flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-200">
+        <div className="w-[350px] border-r-[1px] border-gray-200 px-3 dark:border-white dark:border-opacity-10">
           <Input
             name="title"
-            className="cursor-pointer border-none bg-transparent"
+            className="cursor-pointer border-none bg-transparent dark:bg-transparent"
             defaultValue={goal.title}
             onBlur={(e) => {
               if (e.target.value == '') return;
@@ -60,7 +61,7 @@ export default function GoalTableRow({
           />
         </div>
 
-        <div className="w-[175px] border-r-[1px] border-gray-200 px-3">
+        <div className="w-[175px] border-r-[1px] border-gray-200 px-3 dark:border-white dark:border-opacity-10">
           <Select
             defaultValue={goal.daysPerWeek}
             name="daysPerWeek"
@@ -72,7 +73,7 @@ export default function GoalTableRow({
             }}
           >
             <SelectTrigger
-              className={`w-[150px] ${
+              className={`w-[150px] dark:border-none dark:bg-transparent ${
                 goal.daysPerWeek == '0'
                   ? 'border-none bg-transparent text-transparent'
                   : ''

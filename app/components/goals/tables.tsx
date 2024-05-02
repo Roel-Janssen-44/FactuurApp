@@ -40,7 +40,12 @@ export default async function GoalTables({
   return (
     <div>
       {tables?.map((table: Table) => (
-        <GoalTable key={table.id} table={table} goals={table.goals} />
+        <GoalTable
+          key={table.id}
+          table={table}
+          goals={table.goals}
+          showDelete={true}
+        />
       ))}
       {showCreateNewTable && <CreateTable type="goal" />}
     </div>

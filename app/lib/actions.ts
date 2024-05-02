@@ -214,6 +214,7 @@ export async function createTask(
   prevState: TaskState,
   formData: FormData,
 ) {
+  console.log('createTask');
   const session = await auth();
   const userId = session?.user?.id;
   if (!userId) return;

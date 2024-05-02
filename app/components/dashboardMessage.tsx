@@ -10,7 +10,7 @@ export default function DashboardMessage() {
   if (status === 'authenticated') {
     return (
       <h1
-        className={`${exo.className} text-primary mb-4 text-xl font-bold md:text-3xl`}
+        className={`${exo.className} text-primary mb-4 text-xl font-bold dark:text-white md:text-3xl`}
       >
         Welcom back, <br />
         {session.user.name}

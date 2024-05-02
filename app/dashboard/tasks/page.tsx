@@ -1,5 +1,5 @@
 import Tables from '@/app/components/tasks/tables';
-import { lusitana } from '@/app/components/fonts';
+import { exo } from '@/app/components/fonts';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 export const metadata: Metadata = {
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default async function Page() {
   return (
     <div className="w-full">
-      <h1 className={`${lusitana.className} mb-4 text-2xl`}>Tasks</h1>
+      <h1 className={`${exo.className} mb-4 text-3xl font-bold`}>Tasks</h1>
       <Suspense fallback={'fallback'}>
         <Tables showCreateNewTable={true} />
       </Suspense>

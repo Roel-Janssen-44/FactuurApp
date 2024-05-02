@@ -3,24 +3,18 @@
 import { Button } from '@/app/components/button';
 import { createTable } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
-// import { useSession } from 'next-auth/react';
 
 export default function CreateTable({ type }: { type: 'goal' | 'task' }) {
-  // const { data: session } = useSession();
-  // console.log('session');
-  // console.log(session);
-  // console.log(session.user.id);
   const initialState = { message: null, errors: {} };
-
   const createTableWithType = createTable.bind(null, type);
   const [state, dispatch] = useFormState(createTableWithType, initialState);
 
   return (
     <form action={dispatch}>
-      <div className="rounded-md bg-gray-50 p-4 md:p-6">
+      <div className="dark:bg-primary rounded-md bg-gray-50 p-4 md:p-6">
         <div className="mb-4">
-          <label htmlFor="title" className="mb-2 block text-sm font-medium">
-            Choose a title
+          <label htmlFor="title" className="mb-4 block text-sm font-medium">
+            New table name
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
@@ -28,12 +22,18 @@ export default function CreateTable({ type }: { type: 'goal' | 'task' }) {
                 id="title"
                 name="title"
                 type="text"
-                placeholder="Enter table title"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
+                placeholder="..."
+                className="peer mb-2 block w-full flex-1 rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500 dark:bg-transparent"
                 aria-labelledby="title-error"
                 required
               />
             </div>
+            <Button
+              type="submit"
+              className="bg-primary dark:text-primary dark:bg-white"
+            >
+              Create table
+            </Button>
           </div>
         </div>
 
@@ -45,10 +45,6 @@ export default function CreateTable({ type }: { type: 'goal' | 'task' }) {
               </p>
             ))}
         </div> */}
-      </div>
-
-      <div className="flex justify-end gap-4">
-        <Button type="submit">Create table</Button>
       </div>
     </form>
   );

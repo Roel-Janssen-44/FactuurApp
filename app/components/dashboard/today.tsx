@@ -12,12 +12,10 @@ export default async function TasksToday() {
   };
 
   return (
-    <div className="scrollbar-track-sky-300 scrollbar-thumb-sky-700">
-      <TasksTable
-        table={table}
-        tasks={fetchedTasks as Task[]}
-        showDelete={false}
-      />
-    </div>
+    <TasksTable
+      table={table}
+      tasks={fetchedTasks as Task[]}
+      showDelete={false}
+    />
   );
 }

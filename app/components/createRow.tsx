@@ -44,7 +44,7 @@ export default function CreateTask({
               name="title"
               type="text"
               placeholder="..."
-              className="ml-3 mt-1 block w-full rounded-md border-none bg-transparent py-2 pl-3 pr-20 text-sm outline-2 placeholder:text-gray-400"
+              className="ml-3 mt-1 block w-full rounded-md border-none bg-transparent py-2 pl-3 pr-20 text-sm outline-2 placeholder:text-gray-400 dark:bg-transparent"
               aria-labelledby="title-error"
               required
               onBlur={(e) => {

@@ -37,10 +37,14 @@ export default function NavLinks() {
             key={link.name}
             href={link.href}
             className={clsx(
-              'dark:bg-secondary hover:text-active dark:hover:bg-active flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-100 dark:hover:bg-opacity-50 dark:hover:text-white md:flex-none md:justify-start md:p-2 md:px-3',
+              'flex h-[48px] grow items-center justify-center gap-2 rounded-md  p-3 text-sm font-medium dark:hover:text-white md:flex-none md:justify-start md:p-2 md:px-3',
               {
-                'dark:bg-active bg-active hover:bg-active text-white hover:text-white dark:hover:bg-opacity-100':
+                'bg-active hover:bg-active dark:bg-active text-white hover:text-white dark:text-white':
                   pathname === link.href,
+              },
+              {
+                'dark:hover:bg-active dark:bg-secondary bg-gray-50 hover:bg-gray-100':
+                  pathname !== link.href,
               },
             )}
           >
@@ -51,7 +55,7 @@ export default function NavLinks() {
       })}
       <div
         className={clsx(
-          'dark:bg-secondary hover:text-active dark:hover:bg-active md:px-3s flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-100 dark:hover:bg-opacity-50 dark:hover:text-white md:flex-none md:justify-start md:p-2',
+          'dark:bg-secondary hover:text-active dark:hover:bg-active md:px-3s flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-100 dark:hover:text-white md:flex-none md:justify-start md:p-2',
         )}
       >
         <ThemeSwitcher />

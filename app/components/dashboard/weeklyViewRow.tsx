@@ -40,8 +40,8 @@ export default function WeeklyViewRow({ task }: { task: Goal }) {
   const sundayRef = useRef(null);
 
   return (
-    <div className="border-b-[1px] border-gray-200 odd:bg-gray-100">
-      <div className="flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-200">
+    <div className="dark:odd:bg-secondary dark:border-active border-b-[1px] border-gray-200 odd:bg-gray-100">
+      <div className="dark:hover:bg-active flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-200">
         <div className="inline-block w-[255px] px-4 py-3 pb-2 font-medium sm:pl-6">
           {task.title}
           <span className="text-xs">
@@ -49,7 +49,7 @@ export default function WeeklyViewRow({ task }: { task: Goal }) {
             ({task.completedDates.length} of {task.daysPerWeek})
           </span>
         </div>
-        <div className="inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
+        <div className="dark:border-active inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
           <form ref={mondayRef} action={dispatch}>
             <input type="hidden" name="day" value={'monday'} />
             <input
@@ -74,7 +74,7 @@ export default function WeeklyViewRow({ task }: { task: Goal }) {
             />
           </form>
         </div>
-        <div className="inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
+        <div className="dark:border-active inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
           <form ref={tuesdayRef} action={dispatch}>
             <input type="hidden" name="day" value={'tuesday'} />
             <input
@@ -99,7 +99,7 @@ export default function WeeklyViewRow({ task }: { task: Goal }) {
             />
           </form>
         </div>
-        <div className="inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
+        <div className="dark:border-active inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
           <form ref={wednesdayRef} action={dispatch}>
             <input type="hidden" name="day" value={'wednesday'} />
             <input
@@ -124,7 +124,7 @@ export default function WeeklyViewRow({ task }: { task: Goal }) {
             />
           </form>
         </div>
-        <div className="inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
+        <div className="dark:border-active inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
           <form ref={thursdayRef} action={dispatch}>
             <input type="hidden" name="day" value={'thursday'} />
             <input
@@ -150,7 +150,7 @@ export default function WeeklyViewRow({ task }: { task: Goal }) {
           </form>
         </div>
 
-        <div className="inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
+        <div className="dark:border-active inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
           <form ref={fridayRef} action={dispatch}>
             <input type="hidden" name="day" value={'friday'} />
             <input
@@ -175,7 +175,7 @@ export default function WeeklyViewRow({ task }: { task: Goal }) {
             />
           </form>
         </div>
-        <div className="inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
+        <div className="dark:border-active inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
           <form ref={saturdayRef} action={dispatch}>
             <input type="hidden" name="day" value={'saturday'} />
             <input
@@ -200,7 +200,7 @@ export default function WeeklyViewRow({ task }: { task: Goal }) {
             />
           </form>
         </div>
-        <div className="inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
+        <div className="dark:border-active inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium">
           <form ref={sundayRef} action={dispatch}>
             <input type="hidden" name="day" value={'sunday'} />
             <input
