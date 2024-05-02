@@ -1,11 +1,11 @@
 {
-  "theme_color": "#34d986",
-  "background_color": "#2B5797",
+  "theme_color": "#5E0035",
+  "background_color": "#020202",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "Planner App",
-  "short_name": "Planner",
+  "name": "ListTrackr",
+  "short_name": "ListTrackr",
   "icons": [
     {
       "src": "/icons/icon-192x192.png",

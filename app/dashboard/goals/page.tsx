@@ -2,8 +2,9 @@ import GoalTables from '@/app/components/goals/tables';
 import { exo } from '@/app/components/fonts';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
+
 export const metadata: Metadata = {
-  title: 'Tasks',
+  title: 'Goals',
 };
 
 export default async function Page() {

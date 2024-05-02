@@ -2,6 +2,7 @@ import Tables from '@/app/components/tasks/tables';
 import { exo } from '@/app/components/fonts';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
+
 export const metadata: Metadata = {
   title: 'Tasks',
 };
