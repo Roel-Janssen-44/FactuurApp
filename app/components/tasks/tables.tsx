@@ -31,7 +31,12 @@ export default async function TaskTables({
   return (
     <div>
       {tables?.map((table: Table) => (
-        <TasksTable key={table.id} table={table} tasks={table.tasks} />
+        <TasksTable
+          key={table.id}
+          table={table}
+          tasks={table.tasks}
+          showDelete={true}
+        />
       ))}
       {showCreateNewTable && <CreateForm type="task" />}
     </div>
