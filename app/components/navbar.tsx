@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function Navbar() {
   return (
-    <header className="fixed left-0 top-0 h-14 w-full bg-white text-primary shadow-sm">
+    <header className="fixed left-0 top-0 w-full bg-white text-primary shadow-sm">
       <div className="container flex flex-row items-center justify-between">
         <Link
           href="/"
@@ -29,7 +29,7 @@ export default function Navbar() {
           <Link
             href={'/login'}
             className={
-              'flex grow items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-active dark:hover:text-white md:flex-none md:justify-start'
+              'flex flex-none grow items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-active dark:hover:text-white'
             }
           >
             <p>Log in</p>

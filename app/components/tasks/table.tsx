@@ -13,6 +13,8 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 import { deleteTable } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
 
+import { exo } from '@/app/components/fonts';
+
 export default function TaskTable({
   table,
   tasks,
@@ -34,10 +36,10 @@ export default function TaskTable({
   };
 
   return (
-    <div className="dark:bg-primary relative my-10 rounded-lg bg-gray-100 p-3">
+    <div className="text-tertiary relative my-6 rounded-lg bg-white p-3 dark:bg-primary dark:text-white">
       <h2 className="my-2 flex flex-row justify-between text-lg">
         <Input
-          className="w-[300px] border-none bg-transparent text-xl dark:bg-transparent"
+          className={`${exo.className} w-[300px] border-none bg-transparent text-xl font-bold dark:bg-transparent `}
           defaultValue={table.title}
           onBlur={(e) => {
             handleTitleChange(e.target.value);
@@ -57,7 +59,7 @@ export default function TaskTable({
           </form>
         )}
       </h2>
-      <div className="dark:bg-secondary scrollbar-thumb-active w-full overflow-x-auto rounded-lg bg-gray-50 scrollbar scrollbar-track-slate-300 scrollbar-track-rounded scrollbar-thumb-rounded scrollbar-h-3">
+      <div className="w-full overflow-x-auto rounded-lg bg-white scrollbar scrollbar-track-slate-300 scrollbar-thumb-active scrollbar-track-rounded scrollbar-thumb-rounded scrollbar-h-3 dark:bg-secondary">
         {tasks.length != 0 && (
           <div className="ml-[50px] table text-left text-sm font-normal">
             <div className="flex w-full flex-row flex-nowrap items-center">

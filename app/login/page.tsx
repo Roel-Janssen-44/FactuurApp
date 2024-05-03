@@ -16,7 +16,7 @@ export default async function LoginPage() {
   return (
     <>
       <Navbar />
-      <main className="flex items-center justify-center md:h-screen">
+      <main className="flex min-h-screen items-center justify-center md:h-screen">
         <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
           <div className="space-y-3">
             <div className="flex-1 rounded-lg bg-white px-6 pb-4 pt-8 dark:bg-primary">
@@ -69,7 +69,7 @@ export default async function LoginPage() {
           >
             <Button
               type="submit"
-              className="text-tertiary flex flex-row justify-between gap-4 border-[1px] border-[#1f1f1f] bg-white hover:bg-gray-100"
+              className="text-tertiary dark:text-tertiary flex flex-row justify-between gap-4 border-[1px] border-[#1f1f1f] bg-white hover:bg-gray-100"
             >
               <div className="h-6 w-6">
                 <svg
@@ -98,7 +98,7 @@ export default async function LoginPage() {
                   <path fill="none" d="M0 0h48v48H0z"></path>
                 </svg>
               </div>
-              Signin with Google
+              <span className="text-tertiary">Signin with Google</span>
             </Button>
           </form>
         </div>

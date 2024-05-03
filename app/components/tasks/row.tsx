@@ -57,9 +57,9 @@ export default function TaskTable({
       key={task.id}
       ref={formRef}
       action={dispatch}
-      className={`dark:odd:bg-primary relative flex flex-row border-t-[1px] border-gray-200 odd:bg-gray-100 dark:border-white dark:border-opacity-10`}
+      className={`relative flex flex-row border-t-[1px] border-gray-200 odd:bg-gray-50 dark:border-white dark:border-opacity-10 dark:odd:bg-primary`}
     >
-      <div className="dark:hover:bg-active flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-200">
+      <div className="flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-100 dark:hover:bg-active">
         {task.completed && (
           <>
             <div className="absolute left-0 top-0 h-full w-full bg-black bg-opacity-20"></div>

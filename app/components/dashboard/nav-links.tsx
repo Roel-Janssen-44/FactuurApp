@@ -40,11 +40,11 @@ export default function NavLinks() {
               className={clsx(
                 'flex h-[48px] grow items-center justify-center gap-2 rounded-md  p-3 text-sm font-medium dark:hover:text-white md:flex-none md:justify-start md:p-2 md:px-3',
                 {
-                  'bg-active hover:bg-active dark:bg-active text-white hover:text-white dark:text-white':
+                  'bg-active text-white hover:bg-active hover:text-white dark:bg-active dark:text-white':
                     pathname === link.href,
                 },
                 {
-                  'dark:hover:bg-active dark:bg-secondary bg-gray-50 hover:bg-gray-200':
+                  'text-tertiary bg-gray-50 hover:bg-gray-200 dark:bg-secondary dark:text-white dark:hover:bg-active':
                     pathname !== link.href,
                 },
               )}
@@ -56,18 +56,18 @@ export default function NavLinks() {
         } else {
           return (
             <>
-              <div className="dark:bg-secondary hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
+              <div className="hidden h-auto w-full grow rounded-md bg-gray-50 dark:bg-secondary md:block"></div>
               <Link
                 key={link.name}
                 href={link.href}
                 className={clsx(
                   'flex h-[48px] grow items-center justify-center gap-2 rounded-md  p-3 text-sm font-medium dark:hover:text-white md:flex-none md:justify-start md:p-2 md:px-3',
                   {
-                    'bg-active hover:bg-active dark:bg-active text-white hover:text-white dark:text-white':
+                    'bg-active text-white hover:bg-active hover:text-white dark:bg-active dark:text-white':
                       pathname === link.href,
                   },
                   {
-                    'dark:hover:bg-active dark:bg-secondary bg-gray-50 hover:bg-gray-200':
+                    'text-tertiary bg-gray-50 hover:bg-gray-200 dark:bg-secondary dark:text-white dark:hover:bg-active':
                       pathname !== link.href,
                   },
                 )}

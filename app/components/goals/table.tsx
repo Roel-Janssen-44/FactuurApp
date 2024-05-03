@@ -11,7 +11,7 @@ import { Button } from '@/app/components/chadcn/button';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { deleteTable } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
-
+import { exo } from '@/app/components/fonts';
 export default function TaskTableRow({
   table,
   goals,
@@ -32,10 +32,10 @@ export default function TaskTableRow({
   };
 
   return (
-    <div className="dark:bg-primary relative my-10 rounded-lg bg-gray-100 p-3">
+    <div className="text-tertiary relative my-10 rounded-lg bg-white p-3 dark:bg-primary dark:text-white">
       <h2 className="text- my-2 flex flex-row justify-between">
         <Input
-          className="w-[300px] border-none bg-transparent text-xl dark:bg-transparent"
+          className={`w-[300px] font-bold ${exo.className} border-none bg-transparent text-xl dark:bg-transparent`}
           defaultValue={table.title}
           onBlur={(e) => {
             handleTitleChange(e.target.value);
@@ -45,7 +45,7 @@ export default function TaskTableRow({
           <form
             key={'Delete_table_form' + table.id}
             action={dispatch}
-            className={`relative flex flex-row border-b-[1px] border-gray-200 odd:bg-gray-100`}
+            className={`relative flex flex-row border-b-[1px] border-gray-200 odd:bg-gray-50`}
           >
             <Button type="submit" size="icon" variant="outline">
               <div className="flex flex-row justify-center">
@@ -55,7 +55,7 @@ export default function TaskTableRow({
           </form>
         )}
       </h2>
-      <div className="scrollbar-thumb-active dark:bg-secondary w-full overflow-x-auto rounded-lg bg-gray-50 scrollbar scrollbar-track-slate-300 scrollbar-track-rounded scrollbar-thumb-rounded scrollbar-h-3">
+      <div className="w-full overflow-x-auto rounded-lg bg-gray-50 scrollbar scrollbar-track-slate-300 scrollbar-thumb-active scrollbar-track-rounded scrollbar-thumb-rounded scrollbar-h-3 dark:bg-secondary">
         {goals.length != 0 && (
           <div className="table text-left text-sm font-normal">
             <div className="flex w-full flex-row flex-nowrap items-center">

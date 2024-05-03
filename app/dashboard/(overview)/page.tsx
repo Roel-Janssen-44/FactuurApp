@@ -6,7 +6,7 @@ import TasksToday from '@/app/components/dashboard/today';
 import TasksTomorrow from '@/app/components/dashboard/tomorrow';
 import Tables from '@/app/components/tasks/tables';
 import Goals from '@/app/components/goals/tables';
-
+import { exo } from '@/app/components/fonts';
 import {
   Accordion,
   AccordionContent,
@@ -27,25 +27,36 @@ export default async function Page() {
 
       <Accordion
         type="multiple"
-        defaultValue={['My tasks', 'My goals']}
+        defaultValue={['Weekly view', 'My tasks', 'My goals']}
         className="w-full"
       >
-        <Suspense fallback={'Loading weekly view'}>
-          <WeeklyView />
-        </Suspense>
-        <div className="grid gap-6 sm:grid-cols-2">
-          {/* To do - task creation in today & tomorrow */}
-          <Suspense fallback={'Loading tasks of today'}>
-            <TasksToday />
-          </Suspense>
-          <Suspense fallback={'Loading tasks for tomorrow'}>
-            <TasksTomorrow />
-          </Suspense>
-        </div>
+        <AccordionItem value={'Weekly view'}>
+          <AccordionTrigger>
+            <h2 className={`mb-4 text-2xl font-bold ${exo.className}`}>
+              Weekly view
+            </h2>
+          </AccordionTrigger>
+          <AccordionContent>
+            <Suspense fallback={'Loading weekly view'}>
+              <WeeklyView />
+            </Suspense>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {/* To do - task creation in today & tomorrow */}
+              <Suspense fallback={'Loading tasks of today'}>
+                <TasksToday />
+              </Suspense>
+              <Suspense fallback={'Loading tasks for tomorrow'}>
+                <TasksTomorrow />
+              </Suspense>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
 
         <AccordionItem value={'My tasks'}>
           <AccordionTrigger>
-            <h2 className="mb-4 text-xl">My tasks</h2>
+            <h2 className={`mb-4 text-2xl font-bold ${exo.className}`}>
+              My tasks
+            </h2>
           </AccordionTrigger>
           <AccordionContent>
             <Suspense fallback={'Loading tasks'}>
@@ -56,7 +67,9 @@ export default async function Page() {
 
         <AccordionItem value={'My goals'}>
           <AccordionTrigger>
-            <h2 className="mb-4 text-xl">My goals</h2>
+            <h2 className={`mb-4 text-2xl font-bold ${exo.className}`}>
+              My goals
+            </h2>
           </AccordionTrigger>
           <AccordionContent>
             <Suspense fallback={'Loading goald'}>

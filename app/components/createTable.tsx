@@ -11,8 +11,8 @@ export default function CreateTable({ type }: { type: 'goal' | 'task' }) {
 
   return (
     <form action={dispatch}>
-      <div className="dark:bg-primary rounded-md bg-gray-50 p-4 md:p-6">
-        <div className="mb-4">
+      <div className="rounded-md bg-gray-50 p-4 dark:bg-primary md:p-6">
+        <div className="text-tertiary mb-4 dark:text-white">
           <label htmlFor="title" className="mb-4 block text-sm font-medium">
             New table name
           </label>
@@ -30,7 +30,7 @@ export default function CreateTable({ type }: { type: 'goal' | 'task' }) {
             </div>
             <Button
               type="submit"
-              className="bg-primary dark:text-primary dark:bg-white"
+              className="bg-primary dark:bg-white dark:text-primary"
             >
               Create table
             </Button>

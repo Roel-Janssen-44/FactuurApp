@@ -45,9 +45,9 @@ export default function GoalTableRow({
       ref={formRef}
       action={dispatch}
       // className="border-b-[1px] border-gray-200 odd:bg-gray-100"
-      className={`dark:odd:bg-primary relative flex flex-row border-t-[1px] border-gray-200 odd:bg-gray-100 dark:border-white dark:border-opacity-10`}
+      className={`relative flex flex-row border-t-[1px] border-gray-200 odd:bg-gray-100 dark:border-white dark:border-opacity-10 dark:odd:bg-primary`}
     >
-      <div className="dark:hover:bg-active flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-200">
+      <div className="flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-200 dark:hover:bg-active">
         <div className="w-[350px] border-r-[1px] border-gray-200 px-3 dark:border-white dark:border-opacity-10">
           <Input
             name="title"
@@ -73,10 +73,8 @@ export default function GoalTableRow({
             }}
           >
             <SelectTrigger
-              className={`w-[150px] dark:border-none dark:bg-transparent ${
-                goal.daysPerWeek == '0'
-                  ? 'border-none bg-transparent text-transparent'
-                  : ''
+              className={`w-[150px] border-none bg-transparent dark:border-none dark:bg-transparent ${
+                goal.daysPerWeek == '0' ? 'text-transparent' : ''
               } `}
             >
               <SelectValue placeholder="" />

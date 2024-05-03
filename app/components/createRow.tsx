@@ -32,7 +32,7 @@ export default function CreateTask({
       <div className="w-full rounded-md bg-transparent pr-6">
         <div className="mb-1">
           <label
-            htmlFor="title"
+            htmlFor="newTableTitle"
             className="sr-only mb-2 block text-sm font-medium"
           >
             Choose a title for the task
@@ -40,7 +40,7 @@ export default function CreateTask({
           <div className="w-full">
             <Input
               ref={inputRef}
-              id="title"
+              id="newTableTitle"
               name="title"
               type="text"
               placeholder="..."

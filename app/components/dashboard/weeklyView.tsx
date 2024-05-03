@@ -43,80 +43,76 @@ export default async function WeeklyView() {
   });
 
   return (
-    <div className="mb-20">
-      <h2 className={`${exo.className} mb-2 text-2xl font-bold`}>
-        Weekly view
-      </h2>
-      <div className="dark:bg-primary scrollbar-thumb-primary dark:scrollbar-thumb-active w-full overflow-x-auto rounded-lg bg-gray-50 scrollbar scrollbar-track-slate-300 scrollbar-track-rounded scrollbar-thumb-rounded scrollbar-h-3">
+    <div className="mb-10">
+      <div className="text-tertiary w-full overflow-x-auto rounded-lg bg-gray-50 scrollbar scrollbar-track-slate-300 scrollbar-thumb-primary scrollbar-track-rounded scrollbar-thumb-rounded scrollbar-h-3 dark:bg-primary dark:text-white dark:scrollbar-thumb-active">
         <div className="table text-left text-sm font-normal">
-          <div className="dark:border-active flex w-full flex-row flex-nowrap items-center border-b-[1px] border-gray-200">
+          <div className="flex w-full flex-row flex-nowrap items-center border-b-[1px] border-gray-200 dark:border-active">
             <div className="inline-block w-[255px] px-4 py-3 pb-2 font-medium sm:pl-6"></div>
-
             <div
-              className={`dark:border-active inline-block w-[95px] border-l-2 border-gray-200 px-4 py-3 pb-2 text-center font-medium sm:pl-6 ${
+              className={`inline-block w-[95px] border-l-2 border-gray-200 px-4 py-3 pb-2 text-center font-medium dark:border-active sm:pl-6 ${
                 format(currentDate, 'dd-MM-yyyy') ==
                 format(weekStart, 'dd-MM-yyyy')
-                  ? 'dark:bg-active bg-gray-200'
+                  ? 'bg-gray-200 dark:bg-active'
                   : ''
               }`}
             >
               Monday
             </div>
             <div
-              className={`dark:border-active inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium ${
+              className={`inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium dark:border-active ${
                 format(currentDate, 'dd-MM-yyyy') ==
                 format(addDays(weekStart, 1), 'dd-MM-yyyy')
-                  ? 'dark:bg-active bg-gray-200'
+                  ? 'bg-gray-200 dark:bg-active'
                   : ''
               }`}
             >
               Tuesday
             </div>
             <div
-              className={`dark:border-active inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium ${
+              className={`inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium dark:border-active ${
                 format(currentDate, 'dd-MM-yyyy') ==
                 format(addDays(weekStart, 2), 'dd-MM-yyyy')
-                  ? 'dark:bg-active bg-gray-200'
+                  ? 'bg-gray-200 dark:bg-active'
                   : ''
               }`}
             >
               <span className="-ml-1">Wednesday</span>
             </div>
             <div
-              className={`dark:border-active inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium ${
+              className={`inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium dark:border-active ${
                 format(currentDate, 'dd-MM-yyyy') ==
                 format(addDays(weekStart, 3), 'dd-MM-yyyy')
-                  ? 'dark:bg-active bg-gray-200'
+                  ? 'bg-gray-200 dark:bg-active'
                   : ''
               }`}
             >
               Thursday
             </div>
             <div
-              className={`dark:border-active inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium ${
+              className={`inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium dark:border-active ${
                 format(currentDate, 'dd-MM-yyyy') ==
                 format(addDays(weekStart, 4), 'dd-MM-yyyy')
-                  ? 'dark:bg-active bg-gray-200'
+                  ? 'bg-gray-200 dark:bg-active'
                   : ''
               }`}
             >
               Friday
             </div>
             <div
-              className={`dark:border-active inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium ${
+              className={`inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium dark:border-active ${
                 format(currentDate, 'dd-MM-yyyy') ==
                 format(addDays(weekStart, 5), 'dd-MM-yyyy')
-                  ? 'dark:bg-active bg-gray-200'
+                  ? 'bg-gray-200 dark:bg-active'
                   : ''
               }`}
             >
               Saterday
             </div>
             <div
-              className={`dark:border-active inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium ${
+              className={`inline-block w-[95px] border-l-2 border-gray-200 px-3 py-3 pb-2 text-center font-medium dark:border-active ${
                 format(currentDate, 'dd-MM-yyyy') ==
                 format(addDays(weekStart, 6), 'dd-MM-yyyy')
-                  ? 'dark:bg-active bg-gray-200'
+                  ? 'bg-gray-200 dark:bg-active'
                   : ''
               }`}
             >
