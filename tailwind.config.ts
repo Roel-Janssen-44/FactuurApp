@@ -35,7 +35,7 @@ const config = {
       colors: {
         primary: '#5E0035',
         secondary: '#66003a',
-        teriary: '#020202',
+        tertiary: '#020202',
         active: '#800048',
       },
     },

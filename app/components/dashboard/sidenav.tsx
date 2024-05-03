@@ -8,8 +8,8 @@ export default function SideNav() {
   return (
     <div className="flex h-full flex-col px-3 py-4 md:px-2">
       <Link
-        className="bg-active dark:bg-active mb-2 flex h-20 items-center justify-center rounded-md p-4 md:h-40"
-        href="/"
+        className="mb-2 flex h-20 items-center justify-center rounded-md bg-active p-4 dark:bg-active md:h-40"
+        href="/dashboard"
       >
         <Image
           src={'/logo_wit.svg'}
@@ -31,7 +31,7 @@ export default function SideNav() {
             <Cog6ToothIcon className="w-6" />
             <div className="hidden md:block">Settings</div>
           </button> */}
-          <button className="dark:bg-secondary dark:hover:bg-active flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-200 md:flex-none md:justify-start md:p-2 md:px-3">
+          <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-200 dark:bg-secondary dark:hover:bg-active md:flex-none md:justify-start md:p-2 md:px-3">
             <PowerIcon className="w-6" />
             <div className="hidden md:block">Sign Out</div>
           </button>
