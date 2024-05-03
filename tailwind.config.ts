@@ -12,12 +12,16 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
-      screens: {
-        '2xl': '1400px',
+      padding: {
+        DEFAULT: '1.125rem',
+        xs: '2rem',
       },
     },
     extend: {
+      screens: {
+        xs: '480px',
+      },
+
       keyframes: {
         'accordion-down': {
           from: { height: '0' },
