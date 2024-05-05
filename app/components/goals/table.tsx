@@ -73,7 +73,7 @@ export default function TaskTableRow({
             goals.map((goal: Goal) => (
               <TableRow goal={goal} tableId={table.id} key={goal.id} />
             ))}
-          <CreateTask table_id={table.id} type="goal" />
+          <CreateTask table_id={table.id} type="goal" date={null} />
         </div>
       </div>
     </div>
