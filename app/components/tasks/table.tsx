@@ -19,10 +19,12 @@ export default function TaskTable({
   table,
   tasks,
   showDelete,
+  date,
 }: {
   table: Table;
   tasks: Task[];
   showDelete: boolean;
+  date: string;
 }) {
   const initialState = { message: null, errors: {} };
   const deleteTableWithId = deleteTable.bind(null, table.id);
@@ -83,7 +85,15 @@ export default function TaskTable({
             tasks.map((task: Task) => (
               <TableRow task={task} tableId={table.id} key={task.id} />
             ))}
-          <CreateTask table_id={table.id} type="task" />
+          {date == 'today' && (
+            <CreateTask table_id={table.id} date="today" type="task" />
+          )}
+          {date == 'tomorrow' && (
+            <CreateTask table_id={table.id} date="tomorrow" type="task" />
+          )}
+          {date == null && (
+            <CreateTask table_id={table.id} date="" type="task" />
+          )}
         </div>
       </div>
     </div>

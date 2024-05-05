@@ -16,6 +16,7 @@ export default async function TasksTomorrow() {
       table={table}
       tasks={fetchedTasks as Task[]}
       showDelete={false}
+      date={'tomorrow'}
     />
   );
 }

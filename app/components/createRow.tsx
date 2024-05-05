@@ -8,9 +8,11 @@ import { Input } from '@/app/components/chadcn/input';
 export default function CreateTask({
   table_id,
   type,
+  date,
 }: {
   table_id: string;
   type: 'goal' | 'task';
+  date: string;
 }) {
   const initialState = { message: null, errors: {} };
 
@@ -29,6 +31,7 @@ export default function CreateTask({
 
   return (
     <form ref={formRef} action={dispatch}>
+      <input type="hidden" name="date" value={date} />
       <div className="w-full rounded-md bg-transparent pr-6">
         <div className="mb-1">
           <label

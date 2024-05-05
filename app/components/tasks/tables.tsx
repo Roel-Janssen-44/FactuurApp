@@ -36,6 +36,7 @@ export default async function TaskTables({
           table={table}
           tasks={table.tasks}
           showDelete={true}
+          date={null}
         />
       ))}
       {showCreateNewTable && <CreateForm type="task" />}

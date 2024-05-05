@@ -215,11 +215,27 @@ export async function createTask(
   formData: FormData,
 ) {
   console.log('createTask');
+  console.log('formData');
+  console.log(formData);
   const session = await auth();
   const userId = session?.user?.id;
   if (!userId) return;
 
   const title = formData.get('title');
+  const date = formData.get('date').toString();
+
+  let setDate: string | null;
+  if (date == 'today') {
+    const currentDate = new Date();
+    setDate = currentDate.toDateString();
+  } else if (date == 'tomorrow') {
+    const currentDate = new Date();
+    const tomorrow = new Date(currentDate);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    setDate = tomorrow.toDateString();
+  } else {
+    setDate = null;
+  }
 
   if (typeof title !== 'string' || title.trim() === '') {
     console.log('Validation failed: Title is required.');
@@ -241,8 +257,8 @@ export async function createTask(
 
   try {
     await sql`
-      INSERT INTO tasks (title, table_id, type, user_id)
-      VALUES (${title}, ${table_id}, ${type}, ${userId})
+      INSERT INTO tasks (title, table_id, type, user_id, date)
+      VALUES (${title}, ${table_id}, ${type}, ${userId}, ${setDate})
     `;
   } catch (error) {
     return {
