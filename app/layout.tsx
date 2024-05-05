@@ -5,6 +5,7 @@ import { SessionProvider } from 'next-auth/react';
 import { Metadata } from 'next';
 import Head from 'next/head';
 import { ThemeProvider } from '@/app/components/themeProvider';
+import GoogleAnalytics from '@/app/components/googleAnalytics';
 
 export const metadata: Metadata = {
   title: {
@@ -26,6 +27,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <GoogleAnalytics />
       <Head>
         <meta
           name="viewport"
