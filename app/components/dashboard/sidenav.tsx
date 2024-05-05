@@ -3,6 +3,7 @@ import NavLinks from '@/app/components/dashboard/nav-links';
 import { Cog6ToothIcon, PowerIcon } from '@heroicons/react/24/outline';
 import { signOut } from '@/auth';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 
 export default function SideNav() {
   return (
@@ -24,7 +25,8 @@ export default function SideNav() {
         <form
           action={async () => {
             'use server';
-            await signOut();
+            await signOut({ redirectTo: '/login' });
+            // redirect('/login');
           }}
         >
           {/* <button className="dark:bg-secondary dark:hover:bg-active mb-2 flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-200 md:flex-none md:justify-start md:p-2 md:px-3">

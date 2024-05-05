@@ -1,3 +1,6 @@
+// import { handlers } from 'auth';
+// export const { GET, POST } = handlers;
+
 import { Metadata } from 'next';
 import { exo } from '@/app/components/fonts';
 import Navbar from '@/app/components/navbar';
