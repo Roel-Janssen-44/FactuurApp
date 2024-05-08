@@ -1,8 +1,7 @@
 {
   "theme_color": "#5E0035",
   "background_color": "#ffffff",
-  "display_override": ["window-control-overlay", "minimal-ui"],
-  "display": "fullscreen",
+  "display": "standalone",
   "scope": "/",
   "start_url": "/",
   "name": "ListTrackr",
