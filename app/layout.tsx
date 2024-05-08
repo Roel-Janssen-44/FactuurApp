@@ -48,13 +48,13 @@ export default async function RootLayout({
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <body
-        className={`${inter.className} dark:bg-tertiary bg-[#f5f5f5] text-primary antialiased dark:text-white`}
+        className={`${inter.className} bg-[#f5f5f5] text-primary antialiased dark:bg-tertiary dark:text-white`}
       >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
+          // disableTransitionOnChange
         >
           <SessionProvider session={session}>{children}</SessionProvider>
         </ThemeProvider>
