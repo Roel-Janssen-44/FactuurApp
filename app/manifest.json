@@ -1,7 +1,8 @@
 {
   "theme_color": "#5E0035",
   "background_color": "#ffffff",
-  "display": "standalone",
+  "display_override": ["window-control-overlay", "minimal-ui"],
+  "display": "fullscreen",
   "scope": "/",
   "start_url": "/",
   "name": "ListTrackr",
@@ -30,7 +31,7 @@
     },
     {
       "src": "icons/maskable.png",
-      "sizes": "128x128",
+      "sizes": "1024x1024",
       "type": "image/x-icon",
       "purpose": "maskable"
     }
