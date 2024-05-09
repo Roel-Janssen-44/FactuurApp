@@ -1,9 +1,10 @@
-import { fetchTasksToday } from '@/app/lib/data';
+import { fetchTasksToday, fetchPreviousTasks } from '@/app/lib/data';
 import { Task, Table } from '@/app/lib/definitions';
 import TasksTable from '@components/tasks/table';
 
 export default async function TasksToday() {
   const fetchedTasks = await fetchTasksToday();
+  const fetchedPreviousTasks = await fetchPreviousTasks();
   const table: Table = {
     id: null,
     title: 'Tasks for today',
@@ -11,10 +12,12 @@ export default async function TasksToday() {
     type: 'task',
   };
 
+  const tasks = [...fetchedTasks, ...fetchedPreviousTasks];
+
   return (
     <TasksTable
       table={table}
-      tasks={fetchedTasks as Task[]}
+      tasks={tasks as Task[]}
       showDelete={false}
       date={'today'}
     />

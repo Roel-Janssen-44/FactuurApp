@@ -300,6 +300,7 @@ export async function fetchTasks() {
     throw new Error('Failed to fetch tasks.');
   }
 }
+
 // Fetch tasks of today
 export async function fetchTasksToday() {
   const session = await auth();
@@ -320,6 +321,29 @@ export async function fetchTasksToday() {
     throw new Error('Failed to fetch tasks.');
   }
 }
+
+// Fetch previoud incompleted tasks
+export async function fetchPreviousTasks() {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) return;
+
+  try {
+    const data = await sql`
+    SELECT * FROM tasks
+    WHERE date < CURRENT_DATE
+    AND (status IS DISTINCT FROM 'completed' OR status IS NULL)
+    AND user_id = ${userId}
+    ORDER BY "order" ASC
+  `;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch tasks.');
+  }
+}
+
 // Fetch tasks for tomorrow
 export async function fetchTasksTomorrow() {
   const session = await auth();
@@ -340,6 +364,7 @@ export async function fetchTasksTomorrow() {
     throw new Error('Failed to fetch tasks.');
   }
 }
+
 // Fetch goals
 export async function fetchGoals() {
   const session = await auth();
