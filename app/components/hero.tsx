@@ -5,8 +5,8 @@ import Image from 'next/image';
 
 export default function Hero() {
   return (
-    <div className="mx-auto mt-20 max-w-[85rem] px-4 pt-20 sm:px-6 lg:px-8">
-      <div className="text-tertiary grid gap-4 dark:text-white md:grid-cols-2 md:items-center md:gap-8 xl:gap-20">
+    <div className="mx-auto min-h-screen max-w-[85rem] px-4 pt-40 sm:px-6 lg:px-8">
+      <div className="grid gap-4 text-tertiary dark:text-white md:grid-cols-2 md:items-center md:gap-8 xl:gap-20">
         <div>
           <h1 className="block text-3xl font-bold sm:text-4xl lg:text-6xl lg:leading-tight">
             Start your journey with{' '}

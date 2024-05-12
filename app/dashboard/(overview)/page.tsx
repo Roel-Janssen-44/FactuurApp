@@ -27,7 +27,7 @@ export default async function Page() {
 
       <Accordion
         type="multiple"
-        defaultValue={['Weekly view', 'My tasks', 'My goals']}
+        defaultValue={['Weekly view', 'My tasks']}
         className="w-full"
       >
         <AccordionItem value={'Weekly view'}>
@@ -41,7 +41,6 @@ export default async function Page() {
               <WeeklyView />
             </Suspense>
             <div className="grid gap-6 sm:grid-cols-2">
-              {/* To do - task creation in today & tomorrow */}
               <Suspense fallback={'Loading tasks of today'}>
                 <TasksToday />
               </Suspense>
