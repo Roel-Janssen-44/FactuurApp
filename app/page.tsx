@@ -1,4 +1,3 @@
-// import AcmeLogo from '@/app/components/acme-logo';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { exo } from '@/app/components/fonts';
@@ -9,7 +8,7 @@ import { Metadata } from 'next';
 import Hero from '@/app/components/hero';
 
 export const metadata: Metadata = {
-  title: 'Settings',
+  title: 'Home',
 };
 
 export default function HomePage() {

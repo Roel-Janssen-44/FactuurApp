@@ -59,11 +59,11 @@ export default function TaskTable({
       action={dispatch}
       className={`relative flex flex-row border-t-[1px] border-gray-200 odd:bg-gray-50 dark:border-white dark:border-opacity-10 dark:odd:bg-primary`}
     >
-      <div className="flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-100 dark:hover:bg-active">
+      <div className="group flex w-full flex-row flex-nowrap items-center text-sm transition-colors hover:bg-gray-100 dark:hover:bg-active">
         {task.completed && (
           <>
             <div className="absolute left-0 top-0 h-full w-full bg-black bg-opacity-20"></div>
-            <div className="absolute left-[1%] top-1/2 h-[1px] w-[98%] -translate-y-1/2 rounded bg-black "></div>
+            <div className="absolute left-[1%] top-1/2 z-20 h-[1px] w-[91%] -translate-y-1/2 rounded bg-black "></div>
           </>
         )}
         <div
@@ -219,11 +219,12 @@ export default function TaskTable({
             </SelectContent>
           </Select> */}
         </div>
-        <div className="px-3">
+        <div className="z-30 flex h-full items-center bg-transparent px-3">
           <Button
             onClick={() => deleteTask(task.id)}
             size="icon"
             variant="outline"
+            className="border-transparent bg-red-600 text-white hover:bg-red-400 hover:text-white dark:border-transparent dark:bg-red-600 dark:hover:bg-red-400"
           >
             <div className="flex flex-row justify-center">
               <TrashIcon className="h-5 w-5" />

@@ -1,4 +1,3 @@
-// import { exo } from '@/app/components/fonts';
 import { Button } from '@/app/components/button';
 import Link from 'next/link';
 import Image from 'next/image';
