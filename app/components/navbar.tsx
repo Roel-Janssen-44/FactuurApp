@@ -8,10 +8,7 @@ export default function Navbar() {
   return (
     <header className="fixed left-0 top-0 w-full bg-white text-primary shadow-sm">
       <div className="container flex flex-row items-center justify-between">
-        <Link
-          href="/"
-          className="rounded-lg p-2 px-3 transition-colors hover:bg-gray-100"
-        >
+        <Link href="/" className="rounded-lg p-2 px-3 transition-colors">
           <div className="flex flex-row items-center justify-start gap-0">
             <Image
               src={'/logo_klein_kleur.svg'}

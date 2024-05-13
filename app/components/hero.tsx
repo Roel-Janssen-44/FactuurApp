@@ -13,8 +13,7 @@ export default function Hero() {
             <span className="text-primary dark:text-active">Listtrackr</span>
           </h1>
           <p className="mt-3 text-lg">
-            Hand-picked professionals and expertly crafted components, designed
-            for any kind of entrepreneur.
+            Effortlessly manage tasks and keep track of your goals
           </p>
 
           <div className="mt-7 grid w-full gap-3 sm:inline-flex">
@@ -25,7 +24,7 @@ export default function Hero() {
             </Link>
           </div>
 
-          <div className="mt-6 grid grid-cols-2 gap-x-5 lg:mt-10">
+          {/* <div className="mt-6 grid grid-cols-2 gap-x-5 lg:mt-10">
             <div className="py-5">
               <div className="flex space-x-1">
                 <svg
@@ -233,7 +232,7 @@ export default function Hero() {
                 </svg>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="relative">
