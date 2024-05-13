@@ -55,17 +55,19 @@ export default function Privacy() {
               Affiliate betekent een entiteit die gecontroleerd wordt door een
               partij, die controle heeft over een partij, of die onder
               gemeenschappelijke controle valt met een partij, waarbij
-              "controle" betekent dat er 50% of meer eigendom is van de
-              aandelen, aandelenbelang of andere effecten die stemrecht hebben
-              voor de verkiezing van directeuren of andere beheersautoriteit.
+              &quot;controle&quot; betekent dat er 50% of meer eigendom is van
+              de aandelen, aandelenbelang of andere effecten die stemrecht
+              hebben voor de verkiezing van directeuren of andere
+              beheersautoriteit.
             </li>
             <li className="mb-3">
               Applicatie verwijst naar ListTrackr, het softwareprogramma
               geleverd door het Bedrijf.
             </li>
             <li className="mb-3">
-              Bedrijf (aangeduid als "het Bedrijf", "Wij", "Ons" of "Onze" in
-              deze Overeenkomst) verwijst naar ListTrackr.
+              Bedrijf (aangeduid als &quot;het Bedrijf&quot;, &quot;Wij&quot;,
+              &quot;Ons&quot; of &quot;Onze&quot; in deze Overeenkomst) verwijst
+              naar ListTrackr.
             </li>
             <li className="mb-3">
               Cookies zijn kleine bestanden die door een website op uw computer,
@@ -144,8 +146,8 @@ export default function Privacy() {
           <p className="mb-4">
             Gebruiksgegevens kunnen informatie bevatten zoals het IP-adres van
             uw apparaat (bijvoorbeeld IP-adres), type browser, browser-versie,
-            de pagina's van onze Service die u bezoekt, de tijd en datum van uw
-            bezoek, de tijd die u op die pagina's doorbrengt, unieke
+            de pagina&apos;s van onze Service die u bezoekt, de tijd en datum
+            van uw bezoek, de tijd die u op die pagina&apos;s doorbrengt, unieke
             apparaatidentificatoren en andere diagnostische gegevens.
           </p>
           <p className="mb-4">
@@ -211,10 +213,10 @@ export default function Privacy() {
             zodat deze cookies weigert, kan onze Service cookies gebruiken.
           </p>
           <p className="mb-4">
-            Cookies kunnen "blijvende" of "sessie" cookies zijn. Blijvende
-            cookies blijven op uw persoonlijke computer of mobiele apparaat
-            staan wanneer u offline gaat, terwijl sessiecookies worden
-            verwijderd zodra u uw webbrowser sluit.
+            Cookies kunnen &quot;blijvende&quot; of &quot;sessie&quot; cookies
+            zijn. Blijvende cookies blijven op uw persoonlijke computer of
+            mobiele apparaat staan wanneer u offline gaat, terwijl sessiecookies
+            worden verwijderd zodra u uw webbrowser sluit.
           </p>
 
           <h2 className={`${exo.className} mb-2 mt-6 text-xl font-bold`}>
@@ -242,8 +244,8 @@ export default function Privacy() {
           </p>
           <p className="mb-4">
             <b>Om contact met u op te nemen</b>: om contact met u op te nemen
-            via e-mail, telefoongesprekken, sms'jes of andere equivalenten van
-            elektronische communicatie, zoals pushmeldingen van mobiele
+            via e-mail, telefoongesprekken, sms&apos;jes of andere equivalenten
+            van elektronische communicatie, zoals pushmeldingen van mobiele
             applicaties met betrekking tot updates of informatieve communicatie
             over de functionaliteiten, producten of gecontracteerde diensten,
             inclusief de benodigde of redelijke beveiligingsupdates voor de
