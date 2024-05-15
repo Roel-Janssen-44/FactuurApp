@@ -1,6 +1,3 @@
-// import { handlers } from 'auth';
-// export const { GET, POST } = handlers;
-
 import { Metadata } from 'next';
 import { exo } from '@/app/components/fonts';
 import Navbar from '@/app/components/navbar';
@@ -53,7 +50,7 @@ export default async function LoginPage() {
           >
             <Button
               type="submit"
-              className="bg-tertiary hover:bg-tertiary flex flex-row justify-between gap-4 border-[1px] border-transparent hover:bg-opacity-70 dark:border-white"
+              className="flex flex-row justify-between gap-4 border-[1px] border-transparent bg-tertiary hover:bg-tertiary hover:bg-opacity-70 dark:border-white"
             >
               <Image
                 src="/github-mark-white.png"
@@ -72,7 +69,7 @@ export default async function LoginPage() {
           >
             <Button
               type="submit"
-              className="text-tertiary dark:text-tertiary flex flex-row justify-between gap-4 border-[1px] border-[#1f1f1f] bg-white hover:bg-gray-100"
+              className="flex flex-row justify-between gap-4 border-[1px] border-[#1f1f1f] bg-white text-tertiary hover:bg-gray-100 dark:text-tertiary"
             >
               <div className="h-6 w-6">
                 <svg

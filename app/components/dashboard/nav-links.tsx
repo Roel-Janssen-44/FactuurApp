@@ -11,15 +11,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 
-// Map of links to display in the side navigation.
 const links = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon },
-  // {
-  //   name: 'Invoices',
-  //   href: '/dashboard/invoices',
-  //   icon: DocumentDuplicateIcon,
-  // },
-  // { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
   { name: 'Tasks', href: '/dashboard/tasks', icon: ClipboardDocumentListIcon },
   { name: 'Goals', href: '/dashboard/goals', icon: ClipboardDocumentCheckIcon },
   { name: 'Settings', href: '/dashboard/settings', icon: Cog6ToothIcon },
@@ -44,7 +37,7 @@ export default function NavLinks() {
                     pathname === link.href,
                 },
                 {
-                  'text-tertiary bg-gray-50 hover:bg-gray-200 dark:bg-secondary dark:text-white dark:hover:bg-active':
+                  'bg-gray-50 text-tertiary hover:bg-gray-200 dark:bg-secondary dark:text-white dark:hover:bg-active':
                     pathname !== link.href,
                 },
               )}
@@ -67,7 +60,7 @@ export default function NavLinks() {
                       pathname === link.href,
                   },
                   {
-                    'text-tertiary bg-gray-50 hover:bg-gray-200 dark:bg-secondary dark:text-white dark:hover:bg-active':
+                    'bg-gray-50 text-tertiary hover:bg-gray-200 dark:bg-secondary dark:text-white dark:hover:bg-active':
                       pathname !== link.href,
                   },
                 )}
@@ -79,16 +72,6 @@ export default function NavLinks() {
           );
         }
       })}
-      {/* 
-import ThemeSwitcher from '@/app/components/themeSwitcher';
-      
-      <div
-        className={clsx(
-          'dark:bg-secondary hover:text-active dark:hover:bg-active md:px-3s flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-100 dark:hover:text-white md:flex-none md:justify-start md:p-2',
-        )}
-      >
-        <ThemeSwitcher />
-      </div> */}
     </>
   );
 }

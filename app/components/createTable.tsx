@@ -12,7 +12,7 @@ export default function CreateTable({ type }: { type: 'goal' | 'task' }) {
   return (
     <form action={dispatch}>
       <div className="rounded-md bg-gray-50 p-4 dark:bg-primary md:p-6">
-        <div className="text-tertiary mb-4 dark:text-white">
+        <div className="mb-4 text-tertiary dark:text-white">
           <label htmlFor="title" className="mb-4 block text-sm font-medium">
             New table name
           </label>
@@ -36,15 +36,6 @@ export default function CreateTable({ type }: { type: 'goal' | 'task' }) {
             </Button>
           </div>
         </div>
-
-        {/* <div id="title-error" aria-live="polite" aria-atomic="true">
-          {state.errors?.title &&
-            state.errors.title.map((error: string) => (
-              <p className="mt-2 text-sm text-red-500" key={error}>
-                {error}
-              </p>
-            ))}
-        </div> */}
       </div>
     </form>
   );

@@ -40,7 +40,6 @@ export default function TaskTable({
 
   const formRef = useRef(null);
   const checkboxRef = useRef(null);
-  const statusRef = useRef(null);
   const dateInputRef = useRef(null);
 
   const handleBlur = () => {
@@ -185,39 +184,6 @@ export default function TaskTable({
           >
             {task.status || 'Not planned'}
           </Button>
-          {/* <Select
-            value={task.status}
-            name="status"
-            aria-labelledby="status-error"
-            onValueChange={(value) => {
-              if (value == '') return;
-              if (value == task.status) return;
-              handleBlur();
-            }}
-          >
-            <SelectTrigger
-              className={`w-[150px] border-none ${
-                task.status == 'planned'
-                  ? 'bg-blue-700'
-                  : task.status == 'working on it'
-                  ? 'bg-orange-700'
-                  : task.status == 'done'
-                  ? 'bg-green-700'
-                  : task.status == 'stuck'
-                  ? 'bg-red-700'
-                  : 'border-none bg-transparent text-transparent'
-              }`}
-            >
-              <SelectValue placeholder="" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="null">None</SelectItem>
-              <SelectItem value="planned">Planned</SelectItem>
-              <SelectItem value="working on it">Working on it</SelectItem>
-              <SelectItem value="done">Done</SelectItem>
-              <SelectItem value="stuck">Stuck</SelectItem>
-            </SelectContent>
-          </Select> */}
         </div>
         <div className="z-30 flex h-full items-center bg-transparent px-3">
           <Button
