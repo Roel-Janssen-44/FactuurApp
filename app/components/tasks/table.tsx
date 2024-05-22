@@ -38,7 +38,7 @@ export default function TaskTable({
   };
 
   return (
-    <div className="text-tertiary relative my-6 rounded-lg bg-white p-3 dark:bg-primary dark:text-white">
+    <div className="relative my-6 rounded-lg bg-white p-3 text-tertiary dark:bg-primary dark:text-white">
       <h2 className="my-2 flex flex-row justify-between text-lg">
         <Input
           className={`${exo.className} w-[300px] border-none bg-transparent text-xl font-bold dark:bg-transparent `}

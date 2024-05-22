@@ -38,7 +38,7 @@ export default async function Page() {
             <Suspense fallback={'Loading weekly view'}>
               <WeeklyView />
             </Suspense>
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <Suspense fallback={'Loading tasks of today'}>
                 <TasksToday />
               </Suspense>
